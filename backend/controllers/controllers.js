@@ -1,10 +1,3 @@
-// const func = async (req,res) => {
-//     res.status(200)
-//     res.json({
-//         "success": true
-//     })
-// })
-
 const func = async (req, res) => {
     res.status(200).json({
         "success": true,
