@@ -26,7 +26,7 @@ const Home = () => {
       {/* Header Section */}
       <div className="relative h-48">
         <img
-          src="https://v0.dev/placeholder.svg?height=400&width=800"
+          src="header.jpg"
           alt="Mountain lake"
           className="w-full h-48 object-cover"
         />
