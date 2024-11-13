@@ -53,31 +53,33 @@ const Home = () => {
 
       {/* Breath-in Section */}
       <div className="px-4 py-6">
-        <h2 className="text-2xl font-semibold text-white mb-6">Breath-in</h2>
-        <div className="flex flex-col items-center space-y-6">
-          <div 
-            className={`w-48 h-48 rounded-full bg-blue-500 flex items-center justify-center transition-all duration-4000 ease-in-out ${
-              isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''
-            }`}
-          >
-            <span className="text-white text-xl">{breatheIn ? 'Inhale' : 'Exhale'}</span>
-          </div>
-          <div className="flex space-x-8">
-            <button
-              className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
-              onClick={() => setIsBreathing(true)}
-            >
-              Start
-            </button>
-            <button
-              className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
-              onClick={() => setIsBreathing(false)}
-            >
-              Stop
-            </button>
-          </div>
-        </div>
+  <h2 className="text-2xl font-semibold text-white mb-6">Breath-in</h2>
+  <div className="flex flex-col items-center space-y-6">
+    {/* Outer circle */}
+    <div className={`w-48 h-48 rounded-full bg-blue-500 flex items-center justify-center relative transition-all duration-4000 ease-in-out ${isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''}`}>
+      
+      {/* Inner circle */}
+      <div className={`absolute w-32 h-32 rounded-full bg-blue-300 flex items-center justify-center transition-all duration-4000 ease-in-out ${isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''}`}>
+        <span className="text-white text-xl">{breatheIn ? 'Inhale' : 'Exhale'}</span>
       </div>
+    </div>
+    
+    <div className="flex space-x-8">
+      <button
+        className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
+        onClick={() => setIsBreathing(true)}
+      >
+        Start
+      </button>
+      <button
+        className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
+        onClick={() => setIsBreathing(false)}
+      >
+        Stop
+      </button>
+    </div>
+  </div>
+</div>
 
       {/* Bottom Navigation */}
       
