@@ -7,18 +7,23 @@ const Quiz = () => {
   const questions = [
     {
       question: "How often have you had trouble falling asleep or sleeping too much?",
-      options: ["Not at all", "Several Days", "More than Half the days", "Nearly everyday"]
+      options: ["Not at all", "Several Days", "More than Half the days", "Nearly every day"]
+    },
+    {
+      question: "Do you often feel tired or have little energy?",
+      options: ["Not at all", "Several Days", "More than Half the days", "Nearly every day"]
     },
     // Add more questions here
   ];
 
   const handleAnswer = (answer) => {
+    // Increment the score based on the answer
     if (answer === questions[currentQuestion].options[0]) {
-      setScore(score + 1);
+      setScore((prevScore) => prevScore + 1); // Use functional state update
     }
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    }
+    
+    // Move to the next question or finish quiz if last question
+    setCurrentQuestion((prevQuestion) => prevQuestion + 1);
   };
 
   return (
@@ -26,16 +31,16 @@ const Quiz = () => {
       {currentQuestion < questions.length ? (
         <>
           <div className="mb-4 bg-blue-500 h-2 rounded-full">
-            <div 
-              className="bg-orange-500 h-2 rounded-full" 
-              style={{width: `${((currentQuestion + 1) / questions.length) * 100}%`}}
+            <div
+              className="bg-orange-500 h-2 rounded-full"
+              style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
             ></div>
           </div>
           <h2 className="text-xl text-white mb-4">{questions[currentQuestion].question}</h2>
           {questions[currentQuestion].options.map((option, index) => (
             <button
               key={index}
-              className="mb-2 p-2 bg-blue-500 text-white rounded"
+              className="mb-2 p-2 bg-blue-500 text-white rounded hover:bg-orange-400 transition-all duration-200"
               onClick={() => handleAnswer(option)}
             >
               {option}

@@ -5,22 +5,39 @@ const Navigation = () => {
   const location = useLocation();
 
   return (
-    <nav className="flex justify-around items-center bg-blue-800 p-4">
-      <Link to="/" className={`text-white ${location.pathname === '/' ? 'text-xl' : 'text-base'}`}>
-        Home
-      </Link>
-      <Link to="/quiz" className={`text-white ${location.pathname === '/quiz' ? 'text-xl' : 'text-base'}`}>
-        Quiz
-      </Link>
-      <Link to="/music" className={`text-white ${location.pathname === '/music' ? 'text-xl' : 'text-base'}`}>
-        Music
-      </Link>
-      <Link to="/video" className={`text-white ${location.pathname === '/video' ? 'text-xl' : 'text-base'}`}>
-        Video
-      </Link>
-      <Link to="/profile" className={`text-white ${location.pathname === '/profile' ? 'text-xl' : 'text-base'}`}>
-        Profile
-      </Link>
+    <nav className="flex justify-center items-center bg-blue-800 p-4 shadow-lg">
+      <div className="flex space-x-8">
+        <Link 
+          to="/" 
+          className={`text-white font-semibold transition-all duration-300 ease-in-out ${location.pathname === '/' ? 'text-xl' : 'text-base'} hover:text-yellow-300 hover:scale-110`}
+        >
+          Home
+        </Link>
+        <Link 
+          to="/quiz" 
+          className={`text-white font-semibold transition-all duration-300 ease-in-out ${location.pathname === '/quiz' ? 'text-xl' : 'text-base'} hover:text-yellow-300 hover:scale-110`}
+        >
+          Quiz
+        </Link>
+        <Link 
+          to="/music" 
+          className={`text-white font-semibold transition-all duration-300 ease-in-out ${location.pathname === '/music' ? 'text-xl' : 'text-base'} hover:text-yellow-300 hover:scale-110`}
+        >
+          Music
+        </Link>
+        <Link 
+          to="/video" 
+          className={`text-white font-semibold transition-all duration-300 ease-in-out ${location.pathname === '/video' ? 'text-xl' : 'text-base'} hover:text-yellow-300 hover:scale-110`}
+        >
+          Video
+        </Link>
+        <Link 
+          to="/profile" 
+          className={`text-white font-semibold transition-all duration-300 ease-in-out ${location.pathname === '/profile' ? 'text-xl' : 'text-base'} hover:text-yellow-300 hover:scale-110`}
+        >
+          Profile
+        </Link>
+      </div>
     </nav>
   );
 };
