@@ -7,58 +7,77 @@ const Quiz = () => {
 
   const questions = [
     {
-      question: "How often have you had trouble falling asleep or sleeping too much?",
-      options: ["Not at all", "Several Days", "More than Half the days", "Nearly every day"]
+      question: "I often feel uninterested in activities I used to enjoy.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
     },
     {
-      question: "Do you often feel tired or have little energy?",
-      options: ["Not at all", "Several Days", "More than Half the days", "Nearly every day"]
+      question: "I feel that my daily energy levels are noticeably low.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
     },
-    // Add more questions here
+    {
+      question: "I frequently feel isolated or disconnected from people around me.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
+    },
+    {
+      question: "I find it hard to concentrate on tasks or make decisions.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
+    },
+    {
+      question: "I often feel sad or hopeless without any specific reason.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
+    },
+    {
+      question: "I struggle with a constant feeling of guilt or self-doubt.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
+    },
   ];
-
   const handleAnswer = (answer) => {
-    if (answer === questions[currentQuestion].options[0]) {
-      setScore((prevScore) => prevScore + 1);
-    }
-    setAnswered(true); // Mark that an answer has been selected
+    const answerIndex = questions[currentQuestion].options.indexOf(answer);
+    setScore((prevScore) => prevScore + answerIndex); // Add the score based on the selected option
+    setAnswered(true);
   };
 
   const handleNextQuestion = () => {
-    setAnswered(false); // Reset answered state for the next question
+    setAnswered(false);
     setCurrentQuestion((prevQuestion) => prevQuestion + 1);
   };
 
-  const handleFinishQuiz = () => {
-    // Logic for finishing the quiz
-    // For now, it just shows the score
+  const calculatePercentage = () => {
+    return (score / (questions.length * 3)) * 100; // Max score is 3 for each question
   };
 
   return (
-    <div className="flex flex-col h-screen bg-indigo-900 p-4">
+    <div className="flex flex-col h-screen bg-[#2A1D47] p-8 text-white font-sans">
+      <h1 className="text-2xl font-bold mb-6">Customise your experience</h1>
+
+      <div className="mb-6">
+        <div className="w-full bg-[#3e2a57] h-2 rounded-full">
+          <div
+            className="bg-purple-600 h-2 rounded-full"
+            style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+          ></div>
+        </div>
+      </div>
+
       {currentQuestion < questions.length ? (
         <>
-          <div className="mb-4 bg-blue-500 h-2 rounded-full">
-            <div
-              className="bg-orange-500 h-2 rounded-full"
-              style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-            ></div>
+          <h2 className="text-xl mb-6">{questions[currentQuestion].question}</h2>
+          <div className="space-y-4">
+            {questions[currentQuestion].options.map((option, index) => (
+              <button
+                key={index}
+                className="w-full p-4 text-lg bg-[#5c4d77] text-white rounded-lg hover:bg-purple-500 transition-all duration-300"
+                onClick={() => handleAnswer(option)}
+              >
+                {option}
+              </button>
+            ))}
           </div>
-          <h2 className="text-xl text-white mb-4">{questions[currentQuestion].question}</h2>
-          {questions[currentQuestion].options.map((option, index) => (
-            <button
-              key={index}
-              className="mb-2 p-2 bg-blue-500 text-white rounded hover:bg-orange-400 transition-all duration-200"
-              onClick={() => handleAnswer(option)}
-            >
-              {option}
-            </button>
-          ))}
-          
+
           {/* Show "Next" button after an answer is selected */}
           {answered && (
             <button
-              className="mt-4 p-2 bg-green-500 text-white rounded hover:bg-green-400 transition-all duration-200"
+              className="mt-6 w-full p-4 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-all duration-300"
               onClick={handleNextQuestion}
             >
               Next Question
@@ -66,15 +85,15 @@ const Quiz = () => {
           )}
         </>
       ) : (
-        <div className="text-white text-center">
-          <h2 className="text-2xl mb-4">Quiz Completed!</h2>
-          <p>Your score: {score} out of {questions.length}</p>
-          {/* Show "Finish Quiz" button after quiz is completed */}
+        <div className="flex flex-col items-center justify-center text-center">
+          <h2 className="text-3xl mb-6">Quiz Completed!</h2>
+          <p className="text-xl mb-4">Your score: {score} out of {questions.length * 3}</p>
+          <p className="text-xl mb-8">Your stress level: {calculatePercentage()}%</p>
           <button
-            className="mt-4 p-2 bg-yellow-500 text-white rounded hover:bg-yellow-400 transition-all duration-200"
-            onClick={handleFinishQuiz}
+            className="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-400 transition-all duration-300"
+            onClick={() => window.location.reload()} // Reset the quiz
           >
-            See Final Score
+            Retry Quiz
           </button>
         </div>
       )}
