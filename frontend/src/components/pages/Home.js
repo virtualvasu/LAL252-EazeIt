@@ -25,11 +25,8 @@ const Home = () => {
     <div className="flex flex-col min-h-screen bg-indigo-900">
       {/* Header Section */}
       <div className="relative h-48">
-        <img
-          src="header.jpg"
-          alt="Mountain lake"
-          className="w-full h-48 object-cover"
-        />
+      <img src="/header2.jpg" alt="Mountain lake" className="w-full h-48 object-cover" />
+
         <div className="absolute inset-0 bg-blue-900/30 p-6 flex justify-between items-start">
           <h1 className="text-4xl font-bold text-white">Hi,<br />Bruce</h1>
           <div className="w-12 h-12 bg-white rounded-full"></div>
