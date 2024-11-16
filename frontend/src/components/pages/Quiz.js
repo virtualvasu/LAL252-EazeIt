@@ -7,23 +7,30 @@ const Quiz = () => {
 
   const questions = [
     {
-      question: "How often have you had trouble falling asleep or sleeping too much?",
-      options: ["Not at all", "Several Days", "More than Half the days", "Nearly everyday"]
+      question: "I often feel uninterested in activities I used to enjoy.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
     },
     {
-      question: "How often do you feel down, depressed, or hopeless?",
-      options: ["Not at all", "Several Days", "More than Half the days", "Nearly everyday"]
+      question: "I feel that my daily energy levels are noticeably low.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
     },
     {
-      question: "How often do you feel little interest or pleasure in doing things?",
-      options: ["Not at all", "Several Days", "More than Half the days", "Nearly everyday"]
+      question: "I frequently feel isolated or disconnected from people around me.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
     },
     {
-      question: "How often do you experience trouble concentrating?",
-      options: ["Not at all", "Several Days", "More than Half the days", "Nearly everyday"]
-    }
+      question: "I find it hard to concentrate on tasks or make decisions.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
+    },
+    {
+      question: "I often feel sad or hopeless without any specific reason.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
+    },
+    {
+      question: "I struggle with a constant feeling of guilt or self-doubt.",
+      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
+    },
   ];
-
   const handleAnswer = (answer) => {
     const answerIndex = questions[currentQuestion].options.indexOf(answer);
     setScore((prevScore) => prevScore + answerIndex); // Add the score based on the selected option
