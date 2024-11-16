@@ -39,29 +39,37 @@ const Music = () => {
   };
 
   const handleTrackSelection = (track) => {
-    setCurrentTrack(track.name);
-    setIsPlaying(true); // Automatically start playing the selected track
-    setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.load(); // Reload the audio source for the new track
-        audioRef.current.play(); // Start playing the audio
-      }
-    }, 0);
+    if (currentTrack === track.name && isPlaying) {
+      audioRef.current.pause(); // Pause the current track if clicked again
+      setIsPlaying(false);
+    } else {
+      setCurrentTrack(track.name);
+      setIsPlaying(true); // Automatically start playing the selected track
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.load(); // Reload the audio source for the new track
+          audioRef.current.play(); // Start playing the audio
+        }
+      }, 0);
+    }
   };
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-b from-indigo-900 to-indigo-700 p-6">
       <h2 className="text-3xl text-white font-semibold text-center mb-6">Music</h2>
-      
+
       {/* Track List */}
       <div className="flex flex-col space-y-4 items-center">
         {tracks.map((track, index) => (
           <button
             key={index}
-            className="w-3/4 p-3 text-lg text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 hover:scale-105 transform transition-all duration-300 ease-in-out"
+            className="w-3/4 p-3 text-lg text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 hover:scale-105 transform transition-all duration-300 ease-in-out flex justify-between items-center"
             onClick={() => handleTrackSelection(track)}
           >
             {track.name}
+            <span className="ml-4">
+              {currentTrack === track.name && isPlaying ? '⏸' : '▶️'}
+            </span>
           </button>
         ))}
       </div>
@@ -70,10 +78,10 @@ const Music = () => {
       {currentTrack && (
         <div className="mt-12 p-6 bg-blue-800 rounded-xl shadow-2xl w-full max-w-lg mx-auto">
           <p className="text-xl text-white text-center mb-4">Now Playing: {currentTrack}</p>
-          
+
           {/* Audio Player */}
           <audio ref={audioRef} src={tracks.find(track => track.name === currentTrack)?.file} />
-          
+
           {/* Play Control Buttons */}
           <div className="flex justify-around text-white">
             <button
