@@ -31,29 +31,32 @@ const Quiz = () => {
       options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"]
     },
   ];
+
   const handleAnswer = (answer) => {
-    const answerIndex = questions[currentQuestion].options.indexOf(answer);
-    setScore((prevScore) => prevScore + answerIndex); // Add the score based on the selected option
-    setAnswered(true);
+    if (!answered) { // Prevent multiple clicks
+      const answerIndex = questions[currentQuestion].options.indexOf(answer);
+      setScore((prevScore) => prevScore + answerIndex); // Add the score based on the selected option
+      setAnswered(true); // Mark the question as answered
+    }
   };
 
   const handleNextQuestion = () => {
-    setAnswered(false);
-    setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+    setAnswered(false); // Reset the answered state
+    setCurrentQuestion((prevQuestion) => prevQuestion + 1); // Move to the next question
   };
 
   const calculatePercentage = () => {
-    const percentage = (score / (questions.length * 3)) * 100; // Max score is 3 for each question
+    const percentage = (score / (questions.length * 4)) * 100; // Max score is 4 per question
     return percentage.toFixed(1); // Limit to 1 decimal place
   };
 
   return (
     <div className="flex flex-col h-screen">
-      {/* Header Section with Background Image */}
+      {/* Header Section */}
       <div
         className="flex justify-center items-center text-white h-1/3 bg-cover bg-center"
         style={{
-          backgroundImage: 'url(/header2.jpg)' // Use the correct image path here
+          backgroundImage: 'url(/header2.jpg)' // Replace with the correct image path
         }}
       >
         <h1 className="text-4xl font-bold">Customise your experience</h1>
@@ -72,20 +75,22 @@ const Quiz = () => {
 
         {currentQuestion < questions.length ? (
           <>
-            <h2 className="text-lg mb-6">{questions[currentQuestion].question}</h2> {/* Reduced font size */}
+            <h2 className="text-lg mb-6">{questions[currentQuestion].question}</h2>
             <div className="space-y-4">
               {questions[currentQuestion].options.map((option, index) => (
                 <button
                   key={index}
-                  className="w-full p-4 text-lg bg-[#5c4d77] text-white rounded-lg hover:bg-purple-500 transition-all duration-300"
+                  className={`w-full p-4 text-lg bg-[#5c4d77] text-white rounded-lg ${
+                    answered ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-500'
+                  } transition-all duration-300`}
                   onClick={() => handleAnswer(option)}
+                  disabled={answered} // Disable button after answering
                 >
                   {option}
                 </button>
               ))}
             </div>
 
-            {/* Show "Next" button after an answer is selected */}
             {answered && (
               <button
                 className="mt-6 w-full p-4 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-all duration-300"
