@@ -8,7 +8,7 @@ const Home = () => {
     let interval;
     if (isBreathing) {
       interval = setInterval(() => {
-        setBreatheIn(prev => !prev);
+        setBreatheIn((prev) => !prev);
       }, 2000);
     }
     return () => clearInterval(interval);
@@ -25,8 +25,7 @@ const Home = () => {
     <div className="flex flex-col min-h-screen bg-indigo-900">
       {/* Header Section */}
       <div className="relative h-48">
-      <img src="/header2.jpg" alt="Mountain lake" className="w-full h-48 object-cover" />
-
+        <img src="/header2.jpg" alt="Mountain lake" className="w-full h-48 object-cover" />
         <div className="absolute inset-0 bg-blue-900/30 p-6 flex justify-between items-start">
           <h1 className="text-4xl font-bold text-white">Hi,<br />Bruce</h1>
           <div className="w-12 h-12 bg-white rounded-full"></div>
@@ -35,7 +34,7 @@ const Home = () => {
 
       {/* Affirmations Section */}
       <div className="px-4 py-6">
-        <h2 className="text-2xl font-semibold text-white mb-4">Affirmartions</h2>
+        <h2 className="text-2xl font-semibold text-white mb-4">Affirmations</h2>
         <div className="flex space-x-4 overflow-x-auto pb-4">
           {affirmations.map((item, index) => (
             <div key={index} className="flex-none w-48 bg-indigo-800 rounded-lg overflow-hidden">
@@ -50,36 +49,48 @@ const Home = () => {
 
       {/* Breath-in Section */}
       <div className="px-4 py-6">
-  <h2 className="text-2xl font-semibold text-white mb-6">Breath-in</h2>
-  <div className="flex flex-col items-center space-y-6">
-    {/* Outer circle */}
-    <div className={`w-48 h-48 rounded-full bg-blue-500 flex items-center justify-center relative transition-all duration-4000 ease-in-out ${isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''}`}>
-      
-      {/* Inner circle */}
-      <div className={`absolute w-32 h-32 rounded-full bg-blue-300 flex items-center justify-center transition-all duration-4000 ease-in-out ${isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''}`}>
-        <span className="text-white text-xl">{breatheIn ? 'Inhale' : 'Exhale'}</span>
-      </div>
-    </div>
-    
-    <div className="flex space-x-8">
-      <button
-        className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
-        onClick={() => setIsBreathing(true)}
-      >
-        Start
-      </button>
-      <button
-        className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
-        onClick={() => setIsBreathing(false)}
-      >
-        Stop
-      </button>
-    </div>
-  </div>
-</div>
+        <h2 className="text-2xl font-semibold text-white mb-6">Breath-in</h2>
+        <div className="flex flex-col items-center space-y-6">
+          {/* Outer circle */}
+          <div
+            className={`w-64 h-64 rounded-full bg-white flex items-center justify-center relative transition-all duration-4000 ease-in-out ${
+              isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''
+            }`}
+          >
+            {/* Middle circle */}
+            <div
+              className={`absolute w-48 h-48 rounded-full bg-blue-200 flex items-center justify-center transition-all duration-4000 ease-in-out ${
+                isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''
+              }`}
+            >
+              {/* Inner circle */}
+              <div
+                className={`absolute w-32 h-32 rounded-full bg-blue-500 flex items-center justify-center transition-all duration-4000 ease-in-out ${
+                  isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''
+                }`}
+              >
+                <span className="text-white text-xl">{breatheIn ? 'Inhale' : 'Exhale'}</span>
+              </div>
+            </div>
+          </div>
 
-      {/* Bottom Navigation */}
-      
+          {/* Control Buttons */}
+          <div className="flex space-x-8">
+            <button
+              className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
+              onClick={() => setIsBreathing(true)}
+            >
+              Start
+            </button>
+            <button
+              className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
+              onClick={() => setIsBreathing(false)}
+            >
+              Stop
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

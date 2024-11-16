@@ -1,9 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { FaPlay, FaPause, FaStepBackward, FaStepForward } from 'react-icons/fa';
 
 const Music = () => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null); // Ref to control the audio player
+  const [progress, setProgress] = useState(0);
+  const audioRef = useRef(null);
 
   const tracks = [
     { name: "Relaxing Music 1", file: "/track1.mp3" },
@@ -13,42 +15,61 @@ const Music = () => {
     { name: "Relaxing Music 5", file: "/track5.mp3" },
   ];
 
+  useEffect(() => {
+    const updateProgress = () => {
+      if (audioRef.current) {
+        const { currentTime, duration } = audioRef.current;
+        setProgress(duration ? (currentTime / duration) * 100 : 0);
+      }
+    };
+
+    if (audioRef.current) {
+      audioRef.current.addEventListener('timeupdate', updateProgress);
+    }
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.removeEventListener('timeupdate', updateProgress);
+      }
+    };
+  }, [currentTrack]);
+
   const handlePlayPause = () => {
     if (isPlaying) {
-      audioRef.current.pause(); // Pause the audio
+      audioRef.current.pause();
     } else {
-      audioRef.current.play(); // Play the audio
+      audioRef.current.play();
     }
-    setIsPlaying(!isPlaying); // Toggle the play/pause state
+    setIsPlaying(!isPlaying);
   };
 
   const handleNext = () => {
-    const currentIndex = tracks.findIndex(track => track.name === currentTrack);
-    const nextIndex = (currentIndex + 1) % tracks.length; // Loop back to the first track
+    const currentIndex = tracks.findIndex((track) => track.name === currentTrack);
+    const nextIndex = (currentIndex + 1) % tracks.length;
     setCurrentTrack(tracks[nextIndex].name);
-    setIsPlaying(true); // Automatically play the next track
-    setTimeout(() => audioRef.current.play(), 0); // Ensure playback starts immediately
+    setIsPlaying(true);
+    setTimeout(() => audioRef.current.play(), 0);
   };
 
   const handlePrevious = () => {
-    const currentIndex = tracks.findIndex(track => track.name === currentTrack);
-    const prevIndex = (currentIndex - 1 + tracks.length) % tracks.length; // Loop to the last track if at the first one
+    const currentIndex = tracks.findIndex((track) => track.name === currentTrack);
+    const prevIndex = (currentIndex - 1 + tracks.length) % tracks.length;
     setCurrentTrack(tracks[prevIndex].name);
-    setIsPlaying(true); // Automatically play the previous track
-    setTimeout(() => audioRef.current.play(), 0); // Ensure playback starts immediately
+    setIsPlaying(true);
+    setTimeout(() => audioRef.current.play(), 0);
   };
 
   const handleTrackSelection = (track) => {
     if (currentTrack === track.name && isPlaying) {
-      audioRef.current.pause(); // Pause the current track if clicked again
+      audioRef.current.pause();
       setIsPlaying(false);
     } else {
       setCurrentTrack(track.name);
-      setIsPlaying(true); // Automatically start playing the selected track
+      setIsPlaying(true);
       setTimeout(() => {
         if (audioRef.current) {
-          audioRef.current.load(); // Reload the audio source for the new track
-          audioRef.current.play(); // Start playing the audio
+          audioRef.current.load();
+          audioRef.current.play();
         }
       }, 0);
     }
@@ -63,48 +84,56 @@ const Music = () => {
         {tracks.map((track, index) => (
           <button
             key={index}
-            className="w-3/4 p-3 text-lg text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 hover:scale-105 transform transition-all duration-300 ease-in-out flex justify-between items-center"
+            className="w-3/4 p-3 text-lg text-white bg-blue-600 rounded-2xl shadow-lg hover:bg-blue-700 hover:scale-105 transform transition-all duration-300 ease-in-out flex justify-between items-center"
             onClick={() => handleTrackSelection(track)}
           >
             {track.name}
             <span className="ml-4">
-              {currentTrack === track.name && isPlaying ? '⏸' : '▶️'}
+              {currentTrack === track.name && isPlaying ? <FaPause /> : <FaPlay />}
             </span>
           </button>
         ))}
       </div>
 
       {/* Now Playing Section */}
-      {currentTrack && (
-        <div className="mt-12 p-6 bg-blue-800 rounded-xl shadow-2xl w-full max-w-lg mx-auto">
-          <p className="text-xl text-white text-center mb-4">Now Playing: {currentTrack}</p>
+      <div className="mt-12 p-6 bg-blue-800 rounded-3xl shadow-2xl w-full max-w-lg mx-auto">
+        <p className="text-xl text-white text-center mb-4">
+          {currentTrack ? `Now Playing: ${currentTrack}` : 'Select a track to play'}
+        </p>
 
-          {/* Audio Player */}
-          <audio ref={audioRef} src={tracks.find(track => track.name === currentTrack)?.file} />
+        {/* Audio Player */}
+        <audio ref={audioRef} src={tracks.find((track) => track.name === currentTrack)?.file} />
 
-          {/* Play Control Buttons */}
-          <div className="flex justify-around text-white">
-            <button
-              className="bg-blue-600 px-4 py-2 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
-              onClick={handlePrevious}
-            >
-              Previous
-            </button>
-            <button
-              className="bg-green-500 px-6 py-2 rounded-full shadow-md hover:bg-green-600 transition-all duration-200"
-              onClick={handlePlayPause}
-            >
-              {isPlaying ? 'Pause' : 'Play'}
-            </button>
-            <button
-              className="bg-blue-600 px-4 py-2 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
-              onClick={handleNext}
-            >
-              Next
-            </button>
-          </div>
+        {/* Progress Bar */}
+        <div className="w-full bg-blue-600 rounded-full h-2 mb-4 overflow-hidden">
+          <div
+            className="bg-green-500 h-2 transition-all duration-200"
+            style={{ width: `${progress}%` }}
+          />
         </div>
-      )}
+
+        {/* Play Control Buttons */}
+        <div className="flex justify-around items-center text-white">
+          <button
+            className="bg-blue-600 p-3 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
+            onClick={handlePrevious}
+          >
+            <FaStepBackward />
+          </button>
+          <button
+            className="bg-green-500 p-3 rounded-full shadow-md hover:bg-green-600 transition-all duration-200"
+            onClick={handlePlayPause}
+          >
+            {isPlaying ? <FaPause /> : <FaPlay />}
+          </button>
+          <button
+            className="bg-blue-600 p-3 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
+            onClick={handleNext}
+          >
+            <FaStepForward />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
