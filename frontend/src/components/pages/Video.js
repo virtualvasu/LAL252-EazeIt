@@ -6,30 +6,30 @@ const Video = () => {
       thumbnail: "https://img.youtube.com/vi/Izy1TgMe-tI/sddefault.jpg"
     },
     { 
-      title: "TED: How to live a stress-free life?", 
-      url: "https://via.placeholder.com/400x225.png?text=Thumbnail+2", 
-      thumbnail: "https://via.placeholder.com/400x225.png?text=Thumbnail+2"
+      title: "Mindful Breathing for Anxiety", 
+      url: "https://www.youtube.com/watch?v=v-w-vSvi-24", 
+      thumbnail: "https://img.youtube.com/vi/v-w-vSvi-24/sddefault.jpg"
     },
     { 
-      title: "Motivation", 
-      url: "https://via.placeholder.com/400x225.png?text=Thumbnail+3", 
-      thumbnail: "https://via.placeholder.com/400x225.png?text=Thumbnail+3"
+      title: "How to make stress your friend?", 
+      url: "https://www.youtube.com/watch?v=RcGyVTAoXEU", 
+      thumbnail: "https://img.youtube.com/vi/RcGyVTAoXEU/sddefault.jpg"
     },
     { 
-      title: "Understanding Mental Health", 
-      url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 
-      thumbnail: "https://via.placeholder.com/400x225.png?text=Thumbnail+4"
+      title: "How To Deal With Depression?", 
+      url: "https://www.youtube.com/watch?v=TEwoWxLwCfA", 
+      thumbnail: "https://img.youtube.com/vi/TEwoWxLwCfA/sddefault.jpg"
     },
     { 
-      title: "How to Be More Productive?", 
-      url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 
-      thumbnail: "https://via.placeholder.com/400x225.png?text=Thumbnail+5"
+      title: "How To Eliminate Self Doubt?", 
+      url: "https://www.youtube.com/watch?v=v1ojZKWfShQ", 
+      thumbnail: "https://img.youtube.com/vi/v1ojZKWfShQ/sddefault.jpg"
     }
   ];
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6">
-      <h2 className="text-3xl text-white font-semibold mb-8 text-center">Watch these Enlightening Videos</h2>
+      <h2 className="text-3xl text-white font-semibold mb-8 text-center">Watch these stress relieving Videos</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {videos.map((video, index) => (
           <a

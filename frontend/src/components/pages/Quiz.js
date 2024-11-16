@@ -36,7 +36,8 @@ const Quiz = () => {
   };
 
   const calculatePercentage = () => {
-    return (score / (questions.length * 3)) * 100; // Max score is 3 for each question
+    const percentage = (score / (questions.length * 3)) * 100; // Max score is 3 for each question
+    return percentage.toFixed(1); // Limit to 1 decimal place
   };
 
   return (
@@ -90,7 +91,6 @@ const Quiz = () => {
         ) : (
           <div className="flex flex-col items-center justify-center text-center">
             <h2 className="text-3xl mb-6">Quiz Completed!</h2>
-            <p className="text-xl mb-4">Your score: {score} out of {questions.length * 3}</p>
             <p className="text-xl mb-8">Your stress level: {calculatePercentage()}%</p>
             <button
               className="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-400 transition-all duration-300"

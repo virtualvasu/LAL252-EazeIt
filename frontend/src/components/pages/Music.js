@@ -26,17 +26,27 @@ const Music = () => {
     const currentIndex = tracks.findIndex(track => track.name === currentTrack);
     const nextIndex = (currentIndex + 1) % tracks.length; // Loop back to the first track
     setCurrentTrack(tracks[nextIndex].name);
+    setIsPlaying(true); // Automatically play the next track
+    setTimeout(() => audioRef.current.play(), 0); // Ensure playback starts immediately
   };
 
   const handlePrevious = () => {
     const currentIndex = tracks.findIndex(track => track.name === currentTrack);
     const prevIndex = (currentIndex - 1 + tracks.length) % tracks.length; // Loop to the last track if at the first one
     setCurrentTrack(tracks[prevIndex].name);
+    setIsPlaying(true); // Automatically play the previous track
+    setTimeout(() => audioRef.current.play(), 0); // Ensure playback starts immediately
   };
 
   const handleTrackSelection = (track) => {
     setCurrentTrack(track.name);
     setIsPlaying(true); // Automatically start playing the selected track
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.load(); // Reload the audio source for the new track
+        audioRef.current.play(); // Start playing the audio
+      }
+    }, 0);
   };
 
   return (
