@@ -80,17 +80,17 @@ export async function loader() {
 //                         className="w-24 h-24 rounded-full border-4 border-indigo-900"
 //                     />
 //                 </div>
-//                 <div className="mt-16">
-//                     <h1 className="text-3xl font-bold text-white">{user.name}</h1>
-//                     <p className="text-indigo-300">{user.email}</p>
-//                     <button
-//                         className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full flex items-center space-x-2"
-//                         onClick={handleLogout} // Attach logout function here
-//                     >
-//                         <LogOut className="w-4 h-4" />
-//                         <span>Logout</span>
-//                     </button>
-//                 </div>
+                // <div className="mt-16">
+                //     <h1 className="text-3xl font-bold text-white">{user.name}</h1>
+                //     <p className="text-indigo-300">{user.email}</p>
+                //     <button
+                //         className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full flex items-center space-x-2"
+                //         onClick={handleLogout} // Attach logout function here
+                //     >
+                //         <LogOut className="w-4 h-4" />
+                //         <span>Logout</span>
+                //     </button>
+                // </div>
 //             </div>
 
 //             {/* Stats Section */}
@@ -154,6 +154,7 @@ export async function loader() {
 
 
 export default function UserProfile() {
+    const navigate = useNavigate();
     const data = useLoaderData();
     const user = {
         name: data.given_name,
@@ -176,6 +177,16 @@ export default function UserProfile() {
         { title: "Mindfulness Meditation", description: "Focus on the present moment" },
         { title: "Guided Imagery", description: "Visualize a peaceful, calming scene" },
     ]
+
+    // Logout functionality
+    const handleLogout = () => {
+        // Clear the authentication token (localStorage or cookies)
+        localStorage.removeItem('authToken'); // If stored in localStorage
+        document.cookie = "authToken=; path=/; max-age=0; Secure; SameSite=None"; // If stored in cookies
+
+        // Redirect to login page
+        navigate('/login');
+    };
 
     return (
         <div className="flex flex-col min-h-screen bg-indigo-900">
@@ -208,7 +219,10 @@ export default function UserProfile() {
                 <div className="mt-16">
                     <h1 className="text-3xl font-bold text-white">{user.name}</h1>
                     <p className="text-indigo-300">{user.email}</p>
-                    <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full flex items-center space-x-2">
+                    <button
+                        className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full flex items-center space-x-2"
+                        onClick={handleLogout} // Attach logout function here
+                    >
                         <LogOut className="w-4 h-4" />
                         <span>Logout</span>
                     </button>
@@ -268,7 +282,7 @@ export default function UserProfile() {
                     ))}
                 </div>
             </div>
-            <Navigation/>
+            <Navigation />
         </div>
     )
 }
