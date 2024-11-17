@@ -3,17 +3,17 @@
       "name": "EazeIt",
       "icons": [
         {
-          "src": "Eaze-it.ico",
+          "src": "logo-eazeit.ico",
           "sizes": "64x64 32x32 24x24 16x16",
           "type": "image/x-icon"
         },
         {
-          "src": "Eaze-it.png",
+          "src": "logo-eazeit.png",
           "type": "image/png",
           "sizes": "192x192"
         },
         {
-          "src": "Eaze-it.png",
+          "src": "logo-eazeit.png",
           "type": "image/png",
           "sizes": "512x512"
         }
