@@ -159,9 +159,8 @@ const Quiz = () => {
                 {questions[currentQuestion].options.map((option, index) => (
                   <button
                     key={index}
-                    className={`w-full p-4 text-lg bg-[#5c4d77] text-white rounded-lg shadow-md ${
-                      answered ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-500'
-                    } transition-all duration-300`}
+                    className={`w-full p-4 text-lg bg-[#5c4d77] text-white rounded-lg shadow-md ${answered ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-500'
+                      } transition-all duration-300`}
                     onClick={() => handleAnswer(option)}
                     disabled={answered}
                   >
@@ -180,21 +179,38 @@ const Quiz = () => {
               )}
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center text-center">
-              <h2 className="text-3xl mb-6">Quiz Completed!</h2>
-              <p className="text-xl mb-8">Your stress level: {stressPercentage}%</p>
-              <div className="mb-6">{getRecommendation()}</div>
+            <div className="flex flex-col items-center justify-center px-4 py-6 text-center bg-gradient-to-b from-blue-50 to-blue-100 h-full">
+              <h2 className="text-2xl font-bold text-blue-900 mb-6">Quiz Completed!</h2>
+              <p className="text-lg font-medium text-blue-800 mb-4">
+                Your stress level: <span className="font-bold">{stressPercentage}%</span>
+              </p>
+
+              {/* Progress Bar */}
+              <div className="w-full bg-gray-300 rounded-full h-4 mb-6 relative overflow-hidden">
+                <div
+                  className="bg-blue-500 h-4 rounded-full transition-all duration-500"
+                  style={{ width: `${stressPercentage}%` }}
+                ></div>
+              </div>
+
+              {/* Recommendation */}
+              <div className="mb-6 text-blue-700 font-medium text-base">
+                {getRecommendation()}
+              </div>
+
+              {/* Retry Button */}
               <button
-                className="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-400 transition-all duration-300"
+                className="w-full max-w-xs p-3 bg-yellow-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-yellow-400 active:bg-yellow-600 transition-all duration-300"
                 onClick={() => window.location.reload()}
               >
                 Retry Quiz
               </button>
             </div>
+
           )}
         </div>
       )}
-      <Navigation/>
+      <Navigation />
     </div>
   );
 };
