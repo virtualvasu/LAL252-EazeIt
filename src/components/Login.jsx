@@ -44,7 +44,7 @@ const Login = () => {
     <div className="min-h-screen bg-slate-100 flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden">
         <div className="bg-slate-900 text-white py-4 px-6">
-          <h2 className="text-2xl font-bold text-center">Welcome to Stress Relief App</h2>
+          <h2 className="text-2xl font-bold text-center">EazeIt - The stress relief app</h2>
         </div>
         <div className="p-6">
           <h1 className="text-xl font-semibold text-slate-900 mb-6 text-center">Login to Your Account</h1>
