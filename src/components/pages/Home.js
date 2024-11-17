@@ -27,7 +27,7 @@ const Home = () => {
     if (isBreathing) {
       interval = setInterval(() => {
         setBreatheIn(prev => !prev);
-      }, 2000);
+      }, 4000);
     }
     return () => clearInterval(interval);
   }, [isBreathing]);
@@ -44,8 +44,8 @@ const Home = () => {
       {/* Header Section */}
       <div className="relative h-48">
         <img
-          src="header.jpg"
-          alt="Mountain lake"
+          src="header2.jpg"
+          alt="Mountain lake purple"
           className="w-full h-48 object-cover"
         />
         <div className="absolute inset-0 bg-blue-900/30 p-6 flex justify-between items-start">
@@ -78,26 +78,40 @@ const Home = () => {
 
       {/* Breath-in Section */}
       <div className="px-4 py-6">
-        <h2 className="text-2xl font-semibold text-white mb-6">Breath-in</h2>
+        <h2 className="text-2xl font-semibold text-white text-center mb-6">Breathe In</h2>
         <div className="flex flex-col items-center space-y-6">
           {/* Outer circle */}
-          <div className={`w-48 h-48 rounded-full bg-blue-500 flex items-center justify-center relative transition-all duration-8000 ease-in-out ${isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''}`}>
-
-            {/* Inner circle */}
-            <div className={`absolute w-32 h-32 rounded-full bg-blue-300 flex items-center justify-center transition-all duration-8000 ease-in-out ${isBreathing ? (breatheIn ? 'scale-110' : 'scale-100') : ''}`}>
-              <span className="text-white text-xl">{breatheIn ? 'Inhale' : 'Exhale'}</span>
+          <div
+            className={`w-56 h-56 rounded-full bg-blue-200 flex items-center justify-center relative transition-transform duration-[8000ms] ease-in-out ${isBreathing ? (breatheIn ? "scale-125" : "scale-100") : ""
+              }`}
+          >
+            {/* Middle circle */}
+            <div
+              className={`absolute w-40 h-40 rounded-full bg-blue-300 flex items-center justify-center transition-transform duration-[8000ms] ease-in-out ${isBreathing ? (breatheIn ? "scale-125" : "scale-100") : ""
+                }`}
+            >
+              {/* Inner circle */}
+              <div
+                className={`absolute w-28 h-28 rounded-full bg-white flex items-center justify-center transition-transform duration-[8000ms] ease-in-out ${isBreathing ? (breatheIn ? "scale-125" : "scale-100") : ""
+                  }`}
+              >
+                <span className="text-blue-700 text-lg font-semibold">
+                  {breatheIn ? "Inhale" : "Exhale"}
+                </span>
+              </div>
             </div>
           </div>
 
-          <div className="flex space-x-8">
+          {/* Buttons */}
+          <div className="flex space-x-4">
             <button
-              className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
+              className="px-6 py-2 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-all"
               onClick={() => setIsBreathing(true)}
             >
               Start
             </button>
             <button
-              className="px-6 py-2 border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-colors"
+              className="px-6 py-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition-all"
               onClick={() => setIsBreathing(false)}
             >
               Stop
@@ -105,6 +119,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
 
       {/* Bottom Navigation */}
       <Navigation />
