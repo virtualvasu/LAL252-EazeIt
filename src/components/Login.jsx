@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import {decodeGoogleToken} from '../utils' ;  // Import the loader function
 
-const CLIENT_ID = process.env.CLIENT_ID; // Replace with your Google Client ID in .env
+const REACT_APP_CLIENT_ID = process.env.REACT_APP_CLIENT_ID; // Replace with your Google Client ID in .env
 
 const Login = () => {
   const navigate = useNavigate();
