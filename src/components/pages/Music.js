@@ -91,7 +91,7 @@ const Music = () => {
 
   return (
     <>
-      <div className="flex flex-col h-screen bg-gradient-to-b from-indigo-900 to-indigo-700 p-6">
+      <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6">
         <div className="relative text-center mb-6">
           <img src="/music-gif.gif" alt="Music GIF" className="w-full h-52 object-cover" />
           <h2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl text-white font-bold">
