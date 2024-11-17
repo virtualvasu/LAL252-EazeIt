@@ -180,6 +180,7 @@ const Quiz = () => {
           )}
         </div>
       )}
+      <Navigation/>
     </div>
   );
 };
