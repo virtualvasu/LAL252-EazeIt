@@ -121,7 +121,7 @@ const Quiz = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6">
+    <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-1">
       <div
         className="flex justify-center items-center text-white h-1/3 bg-cover bg-center bg-opacity-70"
         style={{ backgroundImage: 'url(/header2.jpg)' }}

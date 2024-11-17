@@ -40,7 +40,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6">
+    <div className="flex flex-col min-h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-1">
       {/* Header Section */}
       <div className="relative h-48">
         <img
