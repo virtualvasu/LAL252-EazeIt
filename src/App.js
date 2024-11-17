@@ -40,7 +40,7 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <GoogleOAuthProvider clientId={import.meta.env.CLIENT_ID}>
+    <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
       <RouterProvider router={router} />
     </GoogleOAuthProvider>
   );
