@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { redirect, useLoaderData } from 'react-router-dom';
-import { verifyToken } from '../../utils';  // Assuming you have a verifyToken function
+// Assuming you have a verifyToken function
 import Navigation from '../Navigation';
+import { verifyToken } from '../../utils';
 
 export function loader() {
   console.log('hello');
@@ -17,6 +18,7 @@ export function loader() {
 
 const Home = () => {
   const data = useLoaderData();
+  console.log("hello", data);
   const [isBreathing, setIsBreathing] = useState(false);
   const [breatheIn, setBreatheIn] = useState(true);
   // console.log('hello')
@@ -47,8 +49,15 @@ const Home = () => {
           className="w-full h-48 object-cover"
         />
         <div className="absolute inset-0 bg-blue-900/30 p-6 flex justify-between items-start">
-          <h1 className="text-4xl font-bold text-white">Hi,<br />Bruce</h1>
-          <div className="w-12 h-12 bg-white rounded-full"></div>
+          <h1 className="text-4xl font-bold text-white">Hi,<br />{data.user.given_name}</h1>
+          <div className="w-24 h-24 bg-white rounded-full">
+            <img
+              src={data.user.picture}
+              alt={data.user.given_name}
+              className="object-cover rounded-full"
+            />
+          </div>
+
         </div>
       </div>
 
@@ -98,7 +107,7 @@ const Home = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <Navigation/>
+      <Navigation />
 
     </div>
   );

@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
 import Navigation from '../Navigation';
+import { redirect, useLoaderData } from 'react-router-dom';
+import { verifyToken } from '../../utils';
+
+export function loader() {
+  console.log('hello');
+  //  return null;
+  try {
+    const user = verifyToken(); // Check if the token is valid and return the user information
+    return { user }; // Return the user data to the component
+  } catch (err) {
+    console.error('Authentication error:', err.message);
+    return redirect('/login'); // Redirect to the login page if no valid token is found
+  }
+}
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);

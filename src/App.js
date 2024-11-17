@@ -3,12 +3,13 @@ import './index.css'; // or './App.css' if you’ve set up the Tailwind directiv
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home, { loader as homeLoader } from './components/pages/Home';  // Make sure you export loader from Home
-import Quiz from './components/pages/Quiz';
-import Music from './components/pages/Music';
-import Video from './components/pages/Video';
+import Quiz , { loader as quizLoader }from './components/pages/Quiz';
+import Music , { loader as musicLoader } from './components/pages/Music';
+import Video , { loader as videoLoader }from './components/pages/Video';
+import UserProfile,{loader as profileLoader} from './components/pages/Profile'
 import AuthCallback from './components/AuthCallback';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import Login from './components/Login';
+import Login  from './components/Login';
 
 const router = createBrowserRouter([
   {
@@ -19,14 +20,22 @@ const router = createBrowserRouter([
   {
     path: "/quiz",
     element: <Quiz />,
+    loader:quizLoader,
   },
   {
     path: "/music",
     element: <Music />,
+    loader:musicLoader,
   },
   {
     path: "/video",
     element: <Video />,
+    loader:videoLoader,
+  },
+  {
+    path: "/profile",
+    loader:profileLoader,
+    element: <UserProfile />,
   },
   {
     path: "/auth/callback",
