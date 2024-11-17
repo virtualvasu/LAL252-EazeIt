@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from 'react-icons/fa';
+import Navigation from '../Navigation';
 
 const Music = () => {
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -76,74 +77,77 @@ const Music = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-b from-indigo-900 to-indigo-700 p-6">
-      <div className="relative text-center mb-6">
-        <img src="/music-gif.gif" alt="Music GIF" className="w-full h-52 object-cover" />
-        <h2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl text-white font-bold">
-          Music
-        </h2>
-      </div>
-
-
-
-
-
-      {/* Track List */}
-      <div className="flex flex-col space-y-4 items-center">
-        {tracks.map((track, index) => (
-          <button
-            key={index}
-            className="w-3/4 p-3 text-lg text-white bg-blue-600 rounded-2xl shadow-lg hover:bg-blue-700 hover:scale-105 transform transition-all duration-300 ease-in-out flex justify-between items-center"
-            onClick={() => handleTrackSelection(track)}
-          >
-            {track.name}
-            <span className="ml-4">
-              {currentTrack === track.name && isPlaying ? <FaPause /> : <FaPlay />}
-            </span>
-          </button>
-        ))}
-      </div>
-
-      {/* Now Playing Section */}
-      <div className="mt-12 p-6 bg-blue-800 rounded-3xl shadow-2xl w-full max-w-lg mx-auto">
-        <p className="text-xl text-white text-center mb-4">
-          {currentTrack ? `Now Playing: ${currentTrack}` : 'Select a track to play'}
-        </p>
-
-        {/* Audio Player */}
-        <audio ref={audioRef} src={tracks.find((track) => track.name === currentTrack)?.file} />
-
-        {/* Progress Bar */}
-        <div className="w-full bg-blue-600 rounded-full h-2 mb-4 overflow-hidden">
-          <div
-            className="bg-green-500 h-2 transition-all duration-200"
-            style={{ width: `${progress}%` }}
-          />
+    <>
+      <div className="flex flex-col h-screen bg-gradient-to-b from-indigo-900 to-indigo-700 p-6">
+        <div className="relative text-center mb-6">
+          <img src="/music-gif.gif" alt="Music GIF" className="w-full h-52 object-cover" />
+          <h2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl text-white font-bold">
+            Music
+          </h2>
         </div>
 
-        {/* Play Control Buttons */}
-        <div className="flex justify-around items-center text-white">
-          <button
-            className="bg-blue-600 p-3 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
-            onClick={handlePrevious}
-          >
-            <FaStepBackward />
-          </button>
-          <button
-            className="bg-green-500 p-3 rounded-full shadow-md hover:bg-green-600 transition-all duration-200"
-            onClick={handlePlayPause}
-          >
-            {isPlaying ? <FaPause /> : <FaPlay />}
-          </button>
-          <button
-            className="bg-blue-600 p-3 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
-            onClick={handleNext}
-          >
-            <FaStepForward />
-          </button>
+
+
+
+
+        {/* Track List */}
+        <div className="flex flex-col space-y-4 items-center">
+          {tracks.map((track, index) => (
+            <button
+              key={index}
+              className="w-3/4 p-3 text-lg text-white bg-blue-600 rounded-2xl shadow-lg hover:bg-blue-700 hover:scale-105 transform transition-all duration-300 ease-in-out flex justify-between items-center"
+              onClick={() => handleTrackSelection(track)}
+            >
+              {track.name}
+              <span className="ml-4">
+                {currentTrack === track.name && isPlaying ? <FaPause /> : <FaPlay />}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Now Playing Section */}
+        <div className="mt-12 p-6 bg-blue-800 rounded-3xl shadow-2xl w-full max-w-lg mx-auto">
+          <p className="text-xl text-white text-center mb-4">
+            {currentTrack ? `Now Playing: ${currentTrack}` : 'Select a track to play'}
+          </p>
+
+          {/* Audio Player */}
+          <audio ref={audioRef} src={tracks.find((track) => track.name === currentTrack)?.file} />
+
+          {/* Progress Bar */}
+          <div className="w-full bg-blue-600 rounded-full h-2 mb-4 overflow-hidden">
+            <div
+              className="bg-green-500 h-2 transition-all duration-200"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          {/* Play Control Buttons */}
+          <div className="flex justify-around items-center text-white">
+            <button
+              className="bg-blue-600 p-3 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
+              onClick={handlePrevious}
+            >
+              <FaStepBackward />
+            </button>
+            <button
+              className="bg-green-500 p-3 rounded-full shadow-md hover:bg-green-600 transition-all duration-200"
+              onClick={handlePlayPause}
+            >
+              {isPlaying ? <FaPause /> : <FaPlay />}
+            </button>
+            <button
+              className="bg-blue-600 p-3 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
+              onClick={handleNext}
+            >
+              <FaStepForward />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+      <Navigation />
+    </>
   );
 };
 

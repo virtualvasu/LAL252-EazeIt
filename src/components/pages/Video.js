@@ -1,3 +1,5 @@
+import Navigation from "../Navigation";
+
 const Video = () => {
   const videos = [
     { 
@@ -28,7 +30,7 @@ const Video = () => {
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6">
+    <div className="flex flex-col justify-between h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6">
       <h2 className="text-3xl text-white font-semibold mb-8 text-center">Watch these stress relieving Videos</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {videos.map((video, index) => (
@@ -52,6 +54,7 @@ const Video = () => {
           </a>
         ))}
       </div>
+      <Navigation/>
     </div>
   );
 };

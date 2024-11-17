@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navigation from '../Navigation';
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -113,6 +114,7 @@ const Quiz = () => {
           </div>
         )}
       </div>
+      <Navigation/>
     </div>
   );
 };
