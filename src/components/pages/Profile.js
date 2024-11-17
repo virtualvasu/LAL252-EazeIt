@@ -198,12 +198,12 @@ export default function UserProfile() {
                     className="w-full h-48 object-cover"
                 />
                 <div className="absolute inset-0 bg-blue-900/30 p-6 flex justify-between items-start">
-                    <button className="text-white">
+                    {/* <button className="text-white">
                         <ArrowLeft className="w-6 h-6" />
-                    </button>
-                    <button className="text-white">
+                    </button> */}
+                    {/* <button className="text-white">
                         <Settings className="w-6 h-6" />
-                    </button>
+                    </button> */}
                 </div>
             </div>
 
@@ -230,7 +230,7 @@ export default function UserProfile() {
             </div>
 
             {/* Stats Section */}
-            <div className="px-6 py-6 bg-indigo-800 rounded-t-3xl">
+            {/* <div className="px-6 py-6 bg-indigo-800 rounded-t-3xl">
                 <h2 className="text-2xl font-semibold text-white mb-4">Your Stats</h2>
                 <div className="grid grid-cols-3 gap-4">
                     <div className="bg-indigo-700 p-4 rounded-lg text-center">
@@ -249,7 +249,7 @@ export default function UserProfile() {
                         <p className="text-sm text-indigo-300">Total Time</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Stress Relief Techniques */}
             <div className="px-6 py-6 bg-indigo-800">
@@ -265,7 +265,8 @@ export default function UserProfile() {
             </div>
 
             {/* Recent Activities */}
-            <div className="px-6 py-6 bg-indigo-800 flex-grow">
+            
+            {/* <div className="px-6 py-6 bg-indigo-800 flex-grow">
                 <h2 className="text-2xl font-semibold text-white mb-4">Recent Activities</h2>
                 <div className="space-y-4">
                     {user.recentActivities.map((activity, index) => (
@@ -281,7 +282,7 @@ export default function UserProfile() {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> */}
             <Navigation />
         </div>
     )

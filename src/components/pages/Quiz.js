@@ -126,7 +126,7 @@ const Quiz = () => {
         className="flex justify-center items-center text-white h-1/3 bg-cover bg-center bg-opacity-70"
         style={{ backgroundImage: 'url(/header2.jpg)' }}
       >
-        <h1 className="text-4xl font-bold drop-shadow-lg">Customize Your Experience</h1>
+        <h1 className="text-4xl font-bold drop-shadow-lg">Check your stress level</h1>
       </div>
 
       {!started && (
