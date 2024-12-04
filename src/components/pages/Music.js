@@ -5,8 +5,6 @@ import { redirect, useLoaderData } from 'react-router-dom';
 import { verifyToken } from '../../utils';
 
 export function loader() {
-  console.log('hello');
-  //  return null;
   try {
     const user = verifyToken(); // Check if the token is valid and return the user information
     return { user }; // Return the user data to the component
@@ -15,6 +13,7 @@ export function loader() {
     return redirect('/login'); // Redirect to the login page if no valid token is found
   }
 }
+
 const Music = () => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -91,17 +90,13 @@ const Music = () => {
 
   return (
     <>
-      <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6">
+      <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6 pt-20"> {/* Added pt-20 to avoid overlap with navbar */}
         <div className="relative text-center mb-6">
           <img src="/music-gif.gif" alt="Music GIF" className="w-full h-52 object-cover" />
           <h2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl text-white font-bold">
             Music
           </h2>
         </div>
-
-
-
-
 
         {/* Track List */}
         <div className="flex flex-col space-y-4 items-center">
@@ -120,7 +115,7 @@ const Music = () => {
         </div>
 
         {/* Now Playing Section */}
-        <div className="mt-12 p-6 bg-blue-800 rounded-3xl shadow-2xl w-full max-w-lg mx-auto">
+        <div className="mt-12 p-6 bg-blue-800 rounded-3xl shadow-2xl w-full max-w-lg mx-auto z-10">
           <p className="text-xl text-white text-center mb-4">
             {currentTrack ? `Now Playing: ${currentTrack}` : 'Select a track to play'}
           </p>
@@ -159,6 +154,7 @@ const Music = () => {
           </div>
         </div>
       </div>
+
       <Navigation />
     </>
   );
