@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navigation from '../Navigation';  // Ensure you import the Navbar component
 
 const Techniques = () => {
   // Techniques data
@@ -53,7 +54,7 @@ const Techniques = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white p-8">
+    <div className="min-h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white p-8 pb-24"> {/* Added padding-bottom */}
       <h1 className="text-3xl font-bold text-center mb-8">Stress Management Techniques</h1>
 
       {Object.entries(techniques).map(([category, techList]) => (
@@ -88,6 +89,8 @@ const Techniques = () => {
           </div>
         </div>
       ))}
+
+      <Navigation /> {/* Add the Navbar at the bottom */}
     </div>
   );
 };

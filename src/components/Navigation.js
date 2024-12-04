@@ -1,12 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  HomeIcon,
-  MusicNoteIcon,
-  VideoCameraIcon,
-  ClipboardIcon,
-  UserGroupIcon, // Icon for "Techniques"
-} from '@heroicons/react/outline';
+import { HomeIcon, MusicNoteIcon, VideoCameraIcon, ClipboardIcon, SupportIcon } from '@heroicons/react/outline';  // Add SupportIcon for Techniques
 
 const Navigation = () => {
   const location = useLocation();
@@ -16,7 +10,7 @@ const Navigation = () => {
     { path: "/quiz", label: "Quiz", icon: <ClipboardIcon className="h-6 w-6" /> },
     { path: "/music", label: "Music", icon: <MusicNoteIcon className="h-6 w-6" /> },
     { path: "/video", label: "Video", icon: <VideoCameraIcon className="h-6 w-6" /> },
-    { path: "/techniques", label: "Techniques", icon: <UserGroupIcon className="h-6 w-6" /> }, // New tab for Techniques
+    { path: "/techniques", label: "Techniques", icon: <SupportIcon className="h-6 w-6" /> }, // Added Techniques link
   ];
 
   return (
@@ -38,9 +32,6 @@ const Navigation = () => {
           ))}
         </div>
       </nav>
-
-      {/* Add padding-bottom to prevent content overlap */}
-      <div className="pb-16"></div>
     </>
   );
 };
