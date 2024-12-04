@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeIcon, MusicNoteIcon, VideoCameraIcon, UserIcon, ClipboardIcon } from '@heroicons/react/outline';
-
-// HeroIcons for icons
+import {
+  HomeIcon,
+  MusicNoteIcon,
+  VideoCameraIcon,
+  ClipboardIcon,
+  UserGroupIcon, // Icon for "Techniques"
+} from '@heroicons/react/outline';
 
 const Navigation = () => {
   const location = useLocation();
@@ -12,7 +16,7 @@ const Navigation = () => {
     { path: "/quiz", label: "Quiz", icon: <ClipboardIcon className="h-6 w-6" /> },
     { path: "/music", label: "Music", icon: <MusicNoteIcon className="h-6 w-6" /> },
     { path: "/video", label: "Video", icon: <VideoCameraIcon className="h-6 w-6" /> },
-    //{ path: "/profile", label: "Profile", icon: <UserIcon className="h-6 w-6" /> },
+    { path: "/techniques", label: "Techniques", icon: <UserGroupIcon className="h-6 w-6" /> }, // New tab for Techniques
   ];
 
   return (

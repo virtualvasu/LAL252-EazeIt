@@ -3,13 +3,14 @@ import './index.css'; // or './App.css' if you’ve set up the Tailwind directiv
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home, { loader as homeLoader } from './components/pages/Home';  // Make sure you export loader from Home
-import Quiz , { loader as quizLoader }from './components/pages/Quiz';
-import Music , { loader as musicLoader } from './components/pages/Music';
-import Video , { loader as videoLoader }from './components/pages/Video';
-import UserProfile,{loader as profileLoader} from './components/pages/Profile'
+import Quiz, { loader as quizLoader } from './components/pages/Quiz';
+import Music, { loader as musicLoader } from './components/pages/Music';
+import Video, { loader as videoLoader } from './components/pages/Video';
+import UserProfile, { loader as profileLoader } from './components/pages/Profile';
+import Techniques from './components/pages/Techniques'; // Import Techniques page
 import AuthCallback from './components/AuthCallback';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import Login  from './components/Login';
+import Login from './components/Login';
 
 const router = createBrowserRouter([
   {
@@ -20,22 +21,26 @@ const router = createBrowserRouter([
   {
     path: "/quiz",
     element: <Quiz />,
-    loader:quizLoader,
+    loader: quizLoader,
   },
   {
     path: "/music",
     element: <Music />,
-    loader:musicLoader,
+    loader: musicLoader,
   },
   {
     path: "/video",
     element: <Video />,
-    loader:videoLoader,
+    loader: videoLoader,
   },
   {
     path: "/profile",
-    loader:profileLoader,
+    loader: profileLoader,
     element: <UserProfile />,
+  },
+  {
+    path: "/techniques", // Add Techniques route
+    element: <Techniques />,
   },
   {
     path: "/auth/callback",
