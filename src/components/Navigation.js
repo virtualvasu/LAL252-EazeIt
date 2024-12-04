@@ -12,7 +12,7 @@ const Navigation = () => {
     { path: "/quiz", label: "Quiz", icon: <ClipboardIcon className="h-6 w-6" /> },
     { path: "/music", label: "Music", icon: <MusicNoteIcon className="h-6 w-6" /> },
     { path: "/video", label: "Video", icon: <VideoCameraIcon className="h-6 w-6" /> },
-    { path: "/profile", label: "Profile", icon: <UserIcon className="h-6 w-6" /> },
+    //{ path: "/profile", label: "Profile", icon: <UserIcon className="h-6 w-6" /> },
   ];
 
   return (
