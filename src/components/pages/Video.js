@@ -40,8 +40,49 @@ const Video = () => {
       title: "How To Eliminate Self Doubt?",
       url: "https://www.youtube.com/watch?v=v1ojZKWfShQ",
       thumbnail: "https://img.youtube.com/vi/v1ojZKWfShQ/sddefault.jpg"
+    },
+    {
+      title: "What Is Depression Really Like?",
+      url: "https://youtu.be/WWloIAQpMcQ?si=Nh_ojZ4BNK-8aV2v",
+      thumbnail: "https://img.youtube.com/vi/WWloIAQpMcQ/sddefault.jpg"
+    },
+    {
+      title: "Overcoming Self-Doubt",
+      url: "https://youtu.be/qq0DBeFdDlM?si=3cAMact2RVKlkuXJ",
+      thumbnail: "https://img.youtube.com/vi/qq0DBeFdDlM/sddefault.jpg"
+    },
+    {
+      title: "Understanding Anxiety and Panic Attacks",
+      url: "https://youtu.be/ntfcfJ28eiU?si=1zdbaZtTeAZUdIpt",
+      thumbnail: "https://img.youtube.com/vi/ntfcfJ28eiU/sddefault.jpg"
+    },
+    {
+      title: "How to Be Kind to Yourself?",
+      url: "https://youtu.be/kSZKIupBUuc?si=t8jPVuvja0AcWUts",
+      thumbnail: "https://img.youtube.com/vi/kSZKIupBUuc/sddefault.jpg"
+    },
+    {
+      title: "The Importance of Mental Health Awareness",
+      url: "https://youtu.be/-jtuH1H8dfI?si=-xelVSre5ceVj54P",
+      thumbnail: "https://img.youtube.com/vi/-jtuH1H8dfI/sddefault.jpg"
+    },
+    {
+      title: "The Science of Mindfulness",
+      url: "https://youtu.be/d9j4t5JLRPI?si=4rQKwUnkSKwUC3X6",
+      thumbnail: "https://img.youtube.com/vi/d9j4t5JLRPI/sddefault.jpg"
+    },
+    {
+      title: "How to Handle Negative Emotions?",
+      url: "https://youtu.be/eytNiPy0xg0?si=A9I0Yt5DtkFVqA1H",
+      thumbnail: "https://img.youtube.com/vi/eytNiPy0xg0/sddefault.jpg"
+    },
+    {
+      title: "Overcoming Challenges with Resilience",
+      url: "https://youtu.be/Nz9eAaXRzGg?si=_u8lL31wFqLxnTPm",
+      thumbnail: "https://img.youtube.com/vi/Nz9eAaXRzGg/sddefault.jpg"
     }
   ];
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-6">

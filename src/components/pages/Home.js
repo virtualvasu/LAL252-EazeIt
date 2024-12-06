@@ -46,7 +46,7 @@ const Home = () => {
           className="w-full h-48 object-cover"
         />
         <div className="absolute inset-0 bg-blue-900/30 p-6 flex justify-between items-start">
-          <h1 className="text-4xl font-bold text-white">Hi,<br />{data.user.given_name}</h1>
+          <h1 className="text-4xl font-bold text-white">Hi,<br /><b>{data.user.given_name}</b></h1>
           <div
             className="w-24 h-24 bg-white rounded-full cursor-pointer"
             onClick={() => navigate('/profile')} // Navigate to the profile page on click
@@ -77,7 +77,7 @@ const Home = () => {
 
       {/* Breathe-in Section */}
       <div className="px-4 py-6">
-        <h2 className="text-2xl font-semibold text-white text-center mb-6">Breathe In</h2>
+        <h2 className="text-2xl font-semibold text-white text-center mb-6">Deep Breathing</h2>
         <div className="flex flex-col items-center space-y-6">
           <div
             className={`w-56 h-56 rounded-full bg-blue-200 flex items-center justify-center relative transition-transform duration-[8000ms] ease-in-out ${isBreathing ? (breatheIn ? 'scale-125' : 'scale-100') : ''
