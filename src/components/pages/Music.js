@@ -5,16 +5,15 @@ import { redirect, useLoaderData } from 'react-router-dom';
 import { verifyToken } from '../../utils';
 
 export function loader() {
-  console.log('hello');
-  //  return null;
   try {
-    const user = verifyToken(); // Check if the token is valid and return the user information
-    return { user }; // Return the user data to the component
+    const user = verifyToken();
+    return { user };
   } catch (err) {
     console.error('Authentication error:', err.message);
-    return redirect('/login'); // Redirect to the login page if no valid token is found
+    return redirect('/login');
   }
 }
+
 const Music = () => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,11 +21,16 @@ const Music = () => {
   const audioRef = useRef(null);
 
   const tracks = [
-    { name: "Relaxing Music 1", file: "/track1.mp3" },
-    { name: "Relaxing Music 2", file: "/track2.mp3" },
-    { name: "Relaxing Music 3", file: "/track3.mp3" },
-    { name: "Relaxing Music 4", file: "/track4.mp3" },
-    { name: "Relaxing Music 5", file: "/track5.mp3" },
+    { name: "Relaxing Music 1", file: "/music/music1.mp3" },
+    { name: "Relaxing Music 2", file: "/music/music2.mp3" },
+    { name: "Relaxing Music 3", file: "/music/music3.mp3" },
+    { name: "Relaxing Music 4", file: "/music/music4.mp3" },
+    { name: "Relaxing Music 5", file: "/music/music5.mp3" },
+    { name: "Relaxing Music 6", file: "/music/music6.mp3" },
+    { name: "Relaxing Music 7", file: "/music/music7.mp3" },
+    { name: "Relaxing Music 8", file: "/music/music8.mp3" },
+    { name: "Relaxing Music 9", file: "/music/music9.mp3" },
+    { name: "Relaxing Music 10", file: "/music/music10.mp3" },
   ];
 
   useEffect(() => {
@@ -90,25 +94,26 @@ const Music = () => {
   };
 
   return (
-    <>
-      <div className="flex flex-col h-screen bg-gradient-to-b from-indigo-900 to-indigo-700 p-6">
-        <div className="relative text-center mb-6">
-          <img src="/music-gif.gif" alt="Music GIF" className="w-full h-52 object-cover" />
-          <h2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl text-white font-bold">
-            Music
-          </h2>
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-indigo-900 to-indigo-700 text-white">
+      {/* Header Section */}
+      <div className="relative text-center mb-6">
+        <div className="flex items-center justify-center h-65 bg-gradient-to-b from-indigo-900 to-indigo-700">
+          <img src="/music-gif.gif" alt="Music GIF" className="w-auto h-60 object-cover" />
         </div>
 
+        <h2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl font-bold">
+          Music
+        </h2>
+      </div>
 
-
-
-
+      {/* Content Section */}
+      <div className="flex-1 overflow-y-auto px-4 pb-20">
         {/* Track List */}
         <div className="flex flex-col space-y-4 items-center">
           {tracks.map((track, index) => (
             <button
               key={index}
-              className="w-3/4 p-3 text-lg text-white bg-blue-600 rounded-2xl shadow-lg hover:bg-blue-700 hover:scale-105 transform transition-all duration-300 ease-in-out flex justify-between items-center"
+              className="w-3/4 p-3 text-lg bg-blue-600 rounded-2xl shadow-lg hover:bg-blue-700 hover:scale-105 transform transition-all duration-300 ease-in-out flex justify-between items-center"
               onClick={() => handleTrackSelection(track)}
             >
               {track.name}
@@ -121,7 +126,7 @@ const Music = () => {
 
         {/* Now Playing Section */}
         <div className="mt-12 p-6 bg-blue-800 rounded-3xl shadow-2xl w-full max-w-lg mx-auto">
-          <p className="text-xl text-white text-center mb-4">
+          <p className="text-xl text-center mb-4">
             {currentTrack ? `Now Playing: ${currentTrack}` : 'Select a track to play'}
           </p>
 
@@ -137,7 +142,7 @@ const Music = () => {
           </div>
 
           {/* Play Control Buttons */}
-          <div className="flex justify-around items-center text-white">
+          <div className="flex justify-around items-center">
             <button
               className="bg-blue-600 p-3 rounded-full shadow-md hover:bg-blue-700 transition-all duration-200"
               onClick={handlePrevious}
@@ -159,8 +164,9 @@ const Music = () => {
           </div>
         </div>
       </div>
+
       <Navigation />
-    </>
+    </div>
   );
 };
 
