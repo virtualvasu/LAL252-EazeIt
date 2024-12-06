@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeIcon, MusicNoteIcon, VideoCameraIcon, ClipboardIcon, SupportIcon } from '@heroicons/react/outline';  // Add SupportIcon for Techniques
+import { HomeIcon, MusicNoteIcon, VideoCameraIcon, ClipboardIcon, SupportIcon } from '@heroicons/react/outline'; // Add SupportIcon for Techniques
 
 const Navigation = () => {
   const location = useLocation();
@@ -15,6 +15,11 @@ const Navigation = () => {
 
   return (
     <>
+      {/* Main Content Wrapper */}
+      <div className="pb-16"> {/* Add padding to prevent overlap */}
+        {/* This is where your main content will go */}
+      </div>
+
       {/* Bottom Navbar */}
       <nav className="fixed bottom-0 left-0 w-full bg-blue-800 shadow-lg z-50">
         <div className="flex justify-around items-center p-2">

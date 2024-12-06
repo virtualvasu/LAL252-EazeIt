@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css'; // or './App.css' if you’ve set up the Tailwind directives there
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Navigation from './components/Navigation';
+
 import Home, { loader as homeLoader } from './components/pages/Home';  // Make sure you export loader from Home
 import Quiz, { loader as quizLoader } from './components/pages/Quiz';
 import Music, { loader as musicLoader } from './components/pages/Music';
