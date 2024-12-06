@@ -1,216 +1,139 @@
 import React, { useState } from 'react';
+import { redirect } from 'react-router-dom';
+import { verifyToken } from '../../utils'; // Ensure this function is implemented
 import Navigation from '../Navigation';
-import { redirect, useLoaderData } from 'react-router-dom';
-import { verifyToken } from '../../utils';
 
+// Loader function for token verification
 export function loader() {
-  console.log('hello');
-  //  return null;
   try {
-    const user = verifyToken(); // Check if the token is valid and return the user information
-    return { user }; // Return the user data to the component
+    const user = verifyToken(); // Replace with your actual token validation logic
+    return { user };
   } catch (err) {
     console.error('Authentication error:', err.message);
-    return redirect('/login'); // Redirect to the login page if no valid token is found
+    return redirect('/login'); // Redirect to login if token is invalid
   }
 }
 
 const Quiz = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [answered, setAnswered] = useState(false); // Track if an answer has been selected
-  const [started, setStarted] = useState(false); // Track if quiz has started
+  const [currentQuestion, setCurrentQuestion] = useState(-1); // Start at -1 to show instructions first
+  const [scores, setScores] = useState([]);
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
   const questions = [
-    {
-      question: "I often feel uninterested in activities I used to enjoy.",
-      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"],
-    },
-    {
-      question: "I feel that my daily energy levels are noticeably low.",
-      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"],
-    },
-    {
-      question: "I frequently feel isolated or disconnected from people around me.",
-      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"],
-    },
-    {
-      question: "I find it hard to concentrate on tasks or make decisions.",
-      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"],
-    },
-    {
-      question: "I often feel sad or hopeless without any specific reason.",
-      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"],
-    },
-    {
-      question: "I struggle with a constant feeling of guilt or self-doubt.",
-      options: ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"],
-    },
+    "I found it hard to wind down",
+    "I was aware of dryness of my mouth",
+    "I couldn’t seem to experience any positive feeling at all",
+    "I experienced breathing difficulty (e.g. excessively rapid breathing, breathlessness in the absence of physical exertion)",
+    "I found it difficult to work up the initiative to do things",
+    "I tended to over-react to situations",
+    "I experienced trembling (e.g. in the hands)",
+    "I felt that I was using a lot of nervous energy",
+    "I was worried about situations in which I might panic and make a fool of myself",
+    "I felt that I had nothing to look forward to",
+    "I found myself getting agitated",
+    "I found it difficult to relax",
+    "I felt down-hearted and blue",
+    "I was intolerant of anything that kept me from getting on with what I was doing",
+    "I felt I was close to panic",
+    "I was unable to become enthusiastic about anything",
+    "I felt I wasn’t worth much as a person",
+    "I felt that I was rather touchy",
+    "I was aware of the action of my heart in the absence of physical exertion (e.g. sense of heart rate increase, heart missing a beat)",
+    "I felt scared without any good reason",
+    "I felt that life was meaningless"
   ];
 
-  const handleAnswer = (answer) => {
-    if (!answered) {
-      const answerIndex = questions[currentQuestion].options.indexOf(answer);
-      setScore((prevScore) => prevScore + answerIndex);
-      setAnswered(true);
-    }
-  };
+  const options = [
+    { label: "Did not apply to me at all", value: 0 },
+    { label: "Applied to me to some degree, or some of the time", value: 1 },
+    { label: "Applied to me to a considerable degree or a good part of time", value: 2 },
+    { label: "Applied to me very much or most of the time", value: 3 }
+  ];
 
-  const handleNextQuestion = () => {
-    setAnswered(false);
-    setCurrentQuestion((prevQuestion) => prevQuestion + 1);
-  };
-
-  const calculatePercentage = () => {
-    const percentage = (score / (questions.length * 4)) * 100;
-    return percentage.toFixed(1);
-  };
-
-  const startQuiz = () => {
-    setStarted(true);
-  };
-
-  const stressPercentage = calculatePercentage();
-
-  const getRecommendation = () => {
-    if (stressPercentage < 25) {
-      return (
-        <div className="recommendation-box bg-green-600 text-white p-6 rounded-lg shadow-md">
-          <h3 className="text-xl font-semibold">Recommendation:</h3>
-          <p>Try doing deep breathing exercises to calm your mind.</p>
-        </div>
-      );
-    } else if (stressPercentage >= 25 && stressPercentage < 50) {
-      return (
-        <div className="recommendation-box bg-blue-600 text-white p-6 rounded-lg shadow-md">
-          <h3 className="text-xl font-semibold">Recommendation:</h3>
-          <p>Visit the music section of our app for some relaxing tunes.</p>
-        </div>
-      );
-    } else if (stressPercentage >= 50 && stressPercentage < 75) {
-      return (
-        <div className="recommendation-box bg-yellow-600 text-white p-6 rounded-lg shadow-md">
-          <h3 className="text-xl font-semibold">Recommendation:</h3>
-          <p>Watch this calming video to help reduce stress:</p>
-          <a
-            href="https://www.youtube.com/watch?v=RcGyVTAoXEU"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300"
-          >
-            Watch now
-          </a>
-        </div>
-      );
+  const handleAnswer = (score) => {
+    setScores([...scores, score]);
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
     } else {
-      return (
-        <div className="recommendation-box bg-red-600 text-white p-6 rounded-lg shadow-md">
-          <h3 className="text-xl font-semibold">Recommendation:</h3>
-          <p>Watch this inspiring video to lift your spirits:</p>
-          <a
-            href="https://www.youtube.com/watch?v=TEwoWxLwCfA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300"
-          >
-            Watch now
-          </a>
-        </div>
-      );
+      setQuizCompleted(true);
     }
   };
+
+  const calculateScores = () => {
+    const depression = scores.filter((_, i) => [2, 4, 10, 13, 15, 16, 20].includes(i)).reduce((a, b) => a + b, 0) * 2;
+    const anxiety = scores.filter((_, i) => [1, 3, 6, 8, 9, 14, 19].includes(i)).reduce((a, b) => a + b, 0) * 2;
+    const stress = scores.filter((_, i) => [0, 5, 7, 11, 12, 17, 18].includes(i)).reduce((a, b) => a + b, 0) * 2;
+
+    return { depression, anxiety, stress };
+  };
+
+  const renderRecommendation = (score, type) => {
+    const thresholds = {
+      depression: [9, 13, 20, 27],
+      anxiety: [7, 9, 14, 19],
+      stress: [14, 18, 25, 33]
+    };
+
+    const labels = ["Normal", "Mild", "Moderate", "Severe", "Extremely Severe"];
+    const index = thresholds[type].findIndex((threshold) => score <= threshold);
+    return labels[index === -1 ? labels.length - 1 : index];
+  };
+
+  if (quizCompleted) {
+    const { depression, anxiety, stress } = calculateScores();
+    return (
+      <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-0">
+        <div className="flex flex-col items-center justify-center px-4 py-6 text-center bg-gradient-to-b from-blue-50 to-blue-100 h-full">
+          <h2 className="text-2xl font-bold text-blue-900 mb-6">Quiz Completed!</h2>
+          <p className="text-lg font-medium text-blue-800 mb-4">DASS Scores:</p>
+          <p className="text-lg">Depression: {depression} ({renderRecommendation(depression, "depression")})</p>
+          <p className="text-lg">Anxiety: {anxiety} ({renderRecommendation(anxiety, "anxiety")})</p>
+          <p className="text-lg">Stress: {stress} ({renderRecommendation(stress, "stress")})</p>
+          <button
+            className="w-full max-w-xs p-3 bg-yellow-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-yellow-400 active:bg-yellow-600 transition-all duration-300 mt-6"
+            onClick={() => window.location.reload()}
+          >
+            Retry Quiz
+          </button>
+        </div>
+        <Navigation />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 p-0">
-      <div
-        className="flex justify-center items-center text-white h-1/3 bg-cover bg-center bg-opacity-70"
-        style={{ backgroundImage: 'url(/header2.jpg)' }}
-      >
-        <h1 className="text-4xl font-bold drop-shadow-lg">Check your stress level</h1>
+      <div className="flex justify-center items-center text-white h-1/3 bg-cover bg-center bg-opacity-70">
+        <h1 className="text-4xl font-bold drop-shadow-lg">DASS-21 Quiz</h1>
       </div>
-
-      {!started && (
+      {currentQuestion === -1 ? (
         <div className="flex flex-col items-center justify-center text-center flex-grow bg-indigo-900 p-8 rounded-lg shadow-xl">
-          <h2 className="text-2xl mb-6 text-white">Are you ready to begin the quiz?</h2>
+          <h2 className="text-2xl mb-6 text-white">
+            Please read each statement and circle a number 0, 1, 2 or 3 which indicates how much the statement applied to you over the past week. There are no right or wrong answers. Do not spend too much time on any statement.
+          </h2>
           <button
             className="w-full p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300"
-            onClick={startQuiz}
+            onClick={() => setCurrentQuestion(0)}
           >
             Start Quiz
           </button>
         </div>
-      )}
-
-      {started && (
+      ) : (
         <div className="flex flex-col p-8 text-white font-sans bg-indigo-900 flex-grow">
-          <div className="mb-6">
-            <div className="w-full bg-[#3e2a57] h-2 rounded-full">
-              <div
-                className="bg-purple-600 h-2 rounded-full"
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-              ></div>
-            </div>
-          </div>
-
-          {currentQuestion < questions.length ? (
-            <>
-              <h2 className="text-lg mb-6">{questions[currentQuestion].question}</h2>
-              <div className="space-y-4">
-                {questions[currentQuestion].options.map((option, index) => (
-                  <button
-                    key={index}
-                    className={`w-full p-4 text-lg bg-[#5c4d77] text-white rounded-lg shadow-md ${answered ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-500'
-                      } transition-all duration-300`}
-                    onClick={() => handleAnswer(option)}
-                    disabled={answered}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-
-              {answered && (
-                <button
-                  className="mt-6 w-full p-4 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-all duration-300"
-                  onClick={handleNextQuestion}
-                >
-                  Next Question
-                </button>
-              )}
-            </>
-          ) : (
-            <div className="flex flex-col items-center justify-center px-4 py-6 text-center bg-gradient-to-b from-blue-50 to-blue-100 h-full">
-              <h2 className="text-2xl font-bold text-blue-900 mb-6">Quiz Completed!</h2>
-              <p className="text-lg font-medium text-blue-800 mb-4">
-                Your stress level: <span className="font-bold">{stressPercentage}%</span>
-              </p>
-
-              {/* Progress Bar */}
-              <div className="w-full bg-gray-300 rounded-full h-4 mb-6 relative overflow-hidden">
-                <div
-                  className="bg-blue-500 h-4 rounded-full transition-all duration-500"
-                  style={{ width: `${stressPercentage}%` }}
-                ></div>
-              </div>
-
-              {/* Recommendation */}
-              <div className="mb-6 text-blue-700 font-medium text-base">
-                {getRecommendation()}
-              </div>
-
-              {/* Retry Button */}
+          <h2 className="text-lg mb-6">{questions[currentQuestion]}</h2>
+          <div className="space-y-4">
+            {options.map((option, index) => (
               <button
-                className="w-full max-w-xs p-3 bg-yellow-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-yellow-400 active:bg-yellow-600 transition-all duration-300"
-                onClick={() => window.location.reload()}
+                key={index}
+                className="w-full p-4 text-lg bg-[#5c4d77] text-white rounded-lg shadow-md hover:bg-purple-500 transition-all duration-300"
+                onClick={() => handleAnswer(option.value)}
               >
-                Retry Quiz
+                {option.label}
               </button>
-            </div>
-
-          )}
+            ))}
+          </div>
         </div>
       )}
-      <Navigation />
     </div>
   );
 };
