@@ -24,7 +24,6 @@ const Techniques = () => {
                 description: "Follow the instructions in the audio below to perform this physical relaxation technique.",
                 audio: "/techniques/physical/pranayama.mp3"
             }
-            
         ],
         Mental: [
             {
@@ -34,7 +33,7 @@ const Techniques = () => {
             },
             {
                 name: "Ventilate Your Feelings",
-                description: "Express your thoughts to reduce stress and improve mental well-being. Use the text box below to write your feelings.",
+                description: "Express your thoughts to reduce stress and improve mental well-being. Use the text box below to write your feelings."
             },
             {
                 name: "Method of Thought Substitution",
@@ -43,26 +42,36 @@ const Techniques = () => {
             },
             {
                 name: "Reaching Point of Satiation",
-                description: "Write about your mental state of satisfaction and peace below to help you reflect and grow.",
+                description: "Write about your mental state of satisfaction and peace below to help you reflect and grow."
             }
         ],
+        Behavioral: [
+            {
+                name: "SMART Goals",
+                description: "Set SMART (Specific, Measurable, Achievable, Relevant, Time-bound) goals to focus your efforts and track progress. Use the text box below to write and save your goals."
+            },
+            {
+                name: "Stress Diary",
+                description: "Keep track of your stress levels and identify patterns by maintaining a stress diary. Use the text box below to log your daily stress and its triggers."
+            },
+            {
+                name: "Monitor Your Stressors",
+                description: "Write down and analyze your stressors to better understand and manage them. Use the text box below to keep a record of your stressors and strategies to cope."
+            }
+        ]
     };
 
     const [openTechniques, setOpenTechniques] = useState({});
     const currentAudioRef = useRef(null);
 
-    // States for user input
-    const [ventilateThoughts, setVentilateThoughts] = useState('');
-    const [satiationThoughts, setSatiationThoughts] = useState('');
-    const [savedVentilateThoughts, setSavedVentilateThoughts] = useState([]);
-    const [savedSatiationThoughts, setSavedSatiationThoughts] = useState([]);
+    // State to handle user inputs for all text-based techniques
+    const [userInputs, setUserInputs] = useState({});
+    const [savedNotes, setSavedNotes] = useState({});
 
-    // Load saved thoughts from local storage on mount
     useEffect(() => {
-        const storedVentilate = JSON.parse(localStorage.getItem('ventilateThoughts')) || [];
-        const storedSatiation = JSON.parse(localStorage.getItem('satiationThoughts')) || [];
-        setSavedVentilateThoughts(storedVentilate);
-        setSavedSatiationThoughts(storedSatiation);
+        // Load saved notes from localStorage
+        const storedNotes = JSON.parse(localStorage.getItem('techniqueNotes')) || {};
+        setSavedNotes(storedNotes);
     }, []);
 
     const toggleTechnique = (category, index) => {
@@ -79,34 +88,35 @@ const Techniques = () => {
         currentAudioRef.current = audioRef;
     };
 
-    // Handle submission for thoughts
-    const handleThoughtSubmit = (type) => {
-        if (type === "ventilate") {
-            if (ventilateThoughts.trim() === '') return;
-            const updatedVentilate = [...savedVentilateThoughts, ventilateThoughts];
-            setSavedVentilateThoughts(updatedVentilate);
-            setVentilateThoughts('');
-            localStorage.setItem('ventilateThoughts', JSON.stringify(updatedVentilate));
-        } else if (type === "satiation") {
-            if (satiationThoughts.trim() === '') return;
-            const updatedSatiation = [...savedSatiationThoughts, satiationThoughts];
-            setSavedSatiationThoughts(updatedSatiation);
-            setSatiationThoughts('');
-            localStorage.setItem('satiationThoughts', JSON.stringify(updatedSatiation));
-        }
+    const handleNoteChange = (key, value) => {
+        setUserInputs((prevInputs) => ({
+            ...prevInputs,
+            [key]: value
+        }));
     };
 
-    // Handle deletion for thoughts
-    const handleDeleteThought = (type, index) => {
-        if (type === "ventilate") {
-            const updatedVentilate = savedVentilateThoughts.filter((_, i) => i !== index);
-            setSavedVentilateThoughts(updatedVentilate);
-            localStorage.setItem('ventilateThoughts', JSON.stringify(updatedVentilate));
-        } else if (type === "satiation") {
-            const updatedSatiation = savedSatiationThoughts.filter((_, i) => i !== index);
-            setSavedSatiationThoughts(updatedSatiation);
-            localStorage.setItem('satiationThoughts', JSON.stringify(updatedSatiation));
-        }
+    const handleNoteSubmit = (key) => {
+        if (!userInputs[key]?.trim()) return;
+
+        const updatedNotes = {
+            ...savedNotes,
+            [key]: [...(savedNotes[key] || []), userInputs[key]]
+        };
+        setSavedNotes(updatedNotes);
+        setUserInputs((prevInputs) => ({
+            ...prevInputs,
+            [key]: ''
+        }));
+        localStorage.setItem('techniqueNotes', JSON.stringify(updatedNotes));
+    };
+
+    const handleDeleteNote = (key, index) => {
+        const updatedNotes = {
+            ...savedNotes,
+            [key]: savedNotes[key].filter((_, i) => i !== index)
+        };
+        setSavedNotes(updatedNotes);
+        localStorage.setItem('techniqueNotes', JSON.stringify(updatedNotes));
     };
 
     return (
@@ -118,7 +128,8 @@ const Techniques = () => {
                     <h2 className="text-2xl font-semibold mb-4">{category} Techniques</h2>
                     <div className="bg-indigo-800 p-4 rounded-lg">
                         {techList.map((technique, index) => {
-                            const isOpen = openTechniques[`${category}-${index}`];
+                            const key = `${category}-${index}`;
+                            const isOpen = openTechniques[key];
                             return (
                                 <div key={index} className="mb-4">
                                     <button
@@ -133,95 +144,54 @@ const Techniques = () => {
                                     {isOpen && (
                                         <div className="mt-2 bg-indigo-700 p-4 rounded-md">
                                             <p className="mb-2">{technique.description}</p>
-                                            {technique.name === "Ventilate Your Feelings" ? (
-                                                <div>
-                                                    <textarea
-                                                        className="w-full p-2 rounded-md text-black mb-2"
-                                                        rows="4"
-                                                        value={ventilateThoughts}
-                                                        onChange={(e) => setVentilateThoughts(e.target.value)}
-                                                        placeholder="Write down your feelings..."
-                                                    ></textarea>
-                                                    <button
-                                                        onClick={() => handleThoughtSubmit("ventilate")}
-                                                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400"
-                                                    >
-                                                        Submit
-                                                    </button>
-                                                    <div className="mt-4">
-                                                        <h3 className="text-lg font-semibold">Your Thoughts:</h3>
-                                                        {savedVentilateThoughts.length > 0 ? (
-                                                            <ul className="mt-2">
-                                                                {savedVentilateThoughts.map((thought, i) => (
-                                                                    <li
-                                                                        key={i}
-                                                                        className="p-2 bg-indigo-600 rounded-md mb-2 text-white flex justify-between items-center"
-                                                                    >
-                                                                        {thought}
-                                                                        <button
-                                                                            onClick={() => handleDeleteThought("ventilate", i)}
-                                                                            className="hover:text-red-500"
-                                                                        >
-                                                                            <i className="fas fa-trash-alt"></i>
-                                                                        </button>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        ) : (
-                                                            <p className="text-sm">No thoughts saved yet.</p>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            ) : technique.name === "Reaching Point of Satiation" ? (
-                                                <div>
-                                                    <textarea
-                                                        className="w-full p-2 rounded-md text-black mb-2"
-                                                        rows="4"
-                                                        value={satiationThoughts}
-                                                        onChange={(e) => setSatiationThoughts(e.target.value)}
-                                                        placeholder="Write down your thoughts..."
-                                                    ></textarea>
-                                                    <button
-                                                        onClick={() => handleThoughtSubmit("satiation")}
-                                                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400"
-                                                    >
-                                                        Submit
-                                                    </button>
-                                                    <div className="mt-4">
-                                                        <h3 className="text-lg font-semibold">Your Reflections:</h3>
-                                                        {savedSatiationThoughts.length > 0 ? (
-                                                            <ul className="mt-2">
-                                                                {savedSatiationThoughts.map((thought, i) => (
-                                                                    <li
-                                                                        key={i}
-                                                                        className="p-2 bg-indigo-600 rounded-md mb-2 text-white flex justify-between items-center"
-                                                                    >
-                                                                        {thought}
-                                                                        <button
-                                                                            onClick={() => handleDeleteThought("satiation", i)}
-                                                                            className="hover:text-red-500"
-                                                                        >
-                                                                            <i className="fas fa-trash-alt"></i>
-                                                                        </button>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        ) : (
-                                                            <p className="text-sm">No reflections saved yet.</p>
-                                                        )}
-                                                    </div>
-                                                </div>
+                                            {technique.audio ? (
+                                                <audio
+                                                    controls
+                                                    className="w-full"
+                                                    onPlay={(e) => handleAudioPlay(e.target)}
+                                                >
+                                                    <source src={technique.audio} type="audio/mpeg" />
+                                                    Your browser does not support the audio element.
+                                                </audio>
                                             ) : (
-                                                technique.audio && (
-                                                    <audio
-                                                        controls
-                                                        className="w-full"
-                                                        onPlay={(e) => handleAudioPlay(e.target)}
+                                                <div>
+                                                    <textarea
+                                                        className="w-full p-2 rounded-md text-black mb-2"
+                                                        rows="4"
+                                                        value={userInputs[key] || ''}
+                                                        onChange={(e) => handleNoteChange(key, e.target.value)}
+                                                        placeholder="Write your notes here..."
+                                                    ></textarea>
+                                                    <button
+                                                        onClick={() => handleNoteSubmit(key)}
+                                                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400"
                                                     >
-                                                        <source src={technique.audio} type="audio/mpeg" />
-                                                        Your browser does not support the audio element.
-                                                    </audio>
-                                                )
+                                                        Submit
+                                                    </button>
+                                                    <div className="mt-4">
+                                                        <h3 className="text-lg font-semibold">Your Notes:</h3>
+                                                        {savedNotes[key]?.length > 0 ? (
+                                                            <ul className="mt-2">
+                                                                {savedNotes[key].map((note, i) => (
+                                                                    <li
+                                                                        key={i}
+                                                                        className="p-2 bg-indigo-600 rounded-md mb-2 text-white flex justify-between items-center"
+                                                                    >
+                                                                        {note}
+                                                                        <button
+                                                                            onClick={() => handleDeleteNote(key, i)}
+                                                                            className="hover:text-red-500"
+                                                                        >
+                                                                            <i className="fas fa-trash-alt"></i>
+                                                                        </button>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        ) : (
+                                                            <p className="text-sm">No notes saved yet.</p>
+                                                        )}
+                                                    </div>
+                                                </div>
                                             )}
                                         </div>
                                     )}
