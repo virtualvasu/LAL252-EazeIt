@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import Navigation from '../Navigation';  // Ensure you import the Navbar component
+import React, { useState, useRef } from 'react';
+import Navigation from '../Navigation';
 
 const Techniques = () => {
-    // Techniques data
     const techniques = {
         Physical: [
             {
@@ -30,11 +29,8 @@ const Techniques = () => {
                 description: "Follow the instructions in the audio below to perform this physical relaxation technique.",
                 audio: "/techniques/physical/pmr.mp3"
             },
-        ]
-        ,
+        ],
         Mental: [
-            
-            
             {
                 name: "Guided Imagery",
                 description: "Follow the instructions in the audio below to perform this mental relaxation technique and visualize calming imagery.",
@@ -55,26 +51,12 @@ const Techniques = () => {
                 description: "Follow the instructions in the audio below to help you identify and reach a mental state of satisfaction and peace.",
                 audio: "/techniques/mental/reaching_point_of_satiation.mp3"
             }
-        ]
-        // ,
-        // Behavioral: [
-        //     {
-        //         name: "Time Management",
-        //         description: "Plan your day effectively to reduce stress caused by deadlines and workload.",
-        //         audio: "/audios/time_management.mp3"
-        //     },
-        //     {
-        //         name: "Journaling",
-        //         description: "Write down your thoughts and emotions to process them and relieve stress.",
-        //         audio: "/audios/journaling.mp3"
-        //     },
-        // ],
+        ],
     };
 
-    // State to track open techniques
     const [openTechniques, setOpenTechniques] = useState({});
+    const currentAudioRef = useRef(null);
 
-    // Toggle technique's open state
     const toggleTechnique = (category, index) => {
         setOpenTechniques((prevState) => ({
             ...prevState,
@@ -82,8 +64,17 @@ const Techniques = () => {
         }));
     };
 
+    const handleAudioPlay = (audioRef) => {
+        // Pause the currently playing audio if it exists
+        if (currentAudioRef.current && currentAudioRef.current !== audioRef) {
+            currentAudioRef.current.pause();
+        }
+        // Set the new audio as the current audio
+        currentAudioRef.current = audioRef;
+    };
+
     return (
-        <div className="min-h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white p-8 pb-24"> {/* Added padding-bottom */}
+        <div className="min-h-screen bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white p-8 pb-24">
             <h1 className="text-3xl font-bold text-center mb-8">Stress Management Techniques</h1>
 
             {Object.entries(techniques).map(([category, techList]) => (
@@ -106,7 +97,11 @@ const Techniques = () => {
                                     {isOpen && (
                                         <div className="mt-2 bg-indigo-700 p-4 rounded-md">
                                             <p className="mb-2">{technique.description}</p>
-                                            <audio controls className="w-full">
+                                            <audio
+                                                controls
+                                                className="w-full"
+                                                onPlay={(e) => handleAudioPlay(e.target)}
+                                            >
                                                 <source src={technique.audio} type="audio/mpeg" />
                                                 Your browser does not support the audio element.
                                             </audio>
@@ -119,7 +114,7 @@ const Techniques = () => {
                 </div>
             ))}
 
-            <Navigation /> {/* Add the Navbar at the bottom */}
+            <Navigation />
         </div>
     );
 };

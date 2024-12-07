@@ -16,6 +16,7 @@ export function loader() {
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(-1); // Start at -1 to show instructions first
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [scores, setScores] = useState([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
@@ -50,12 +51,18 @@ const Quiz = () => {
     { label: "Applied to me very much or most of the time", value: 3 }
   ];
 
-  const handleAnswer = (score) => {
-    setScores([...scores, score]);
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+  const handleNext = () => {
+    if (selectedAnswer !== null) {
+      setScores([...scores, selectedAnswer]);
+      setSelectedAnswer(null); // Reset selected answer for the next question
+
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        setQuizCompleted(true);
+      }
     } else {
-      setQuizCompleted(true);
+      alert("Please select an answer before proceeding.");
     }
   };
 
@@ -125,13 +132,21 @@ const Quiz = () => {
             {options.map((option, index) => (
               <button
                 key={index}
-                className="w-full p-4 text-lg bg-[#5c4d77] text-white rounded-lg shadow-md hover:bg-purple-500 transition-all duration-300"
-                onClick={() => handleAnswer(option.value)}
+                className={`w-full p-4 text-lg ${
+                  selectedAnswer === option.value ? "bg-purple-600" : "bg-[#5c4d77]"
+                } text-white rounded-lg shadow-md hover:bg-purple-500 transition-all duration-300`}
+                onClick={() => setSelectedAnswer(option.value)}
               >
                 {option.label}
               </button>
             ))}
           </div>
+          <button
+            className="w-full mt-6 p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300"
+            onClick={handleNext}
+          >
+            Next Question
+          </button>
         </div>
       )}
     </div>
