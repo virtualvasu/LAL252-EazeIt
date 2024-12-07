@@ -55,8 +55,8 @@ const Techniques = () => {
                 description: "Keep track of your stress levels and identify patterns by maintaining a stress diary. Use the text box below to log your daily stress and its triggers."
             },
             {
-                name: "Monitor Your Stressors",
-                description: "Write down and analyze your stressors to better understand and manage them. Use the text box below to keep a record of your stressors and strategies to cope."
+                name: "Countering indecisiveness",
+                description: "Maintain four sections in your notes for every stressful event: Description, Stakes Involved, Alternate Decisions, and Consequences. By organizing your thoughts this way, you'll find decision-making becomes easier after note-taking."
             }
         ]
     };
