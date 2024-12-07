@@ -23,12 +23,8 @@ const Techniques = () => {
                 name: "Pranayama",
                 description: "Follow the instructions in the audio below to perform this physical relaxation technique.",
                 audio: "/techniques/physical/pranayama.mp3"
-            },
-            {
-                name: "Progressive Muscle Relaxation",
-                description: "Follow the instructions in the audio below to perform this physical relaxation technique.",
-                audio: "/techniques/physical/pmr.mp3"
-            },
+            }
+            
         ],
         Mental: [
             {
