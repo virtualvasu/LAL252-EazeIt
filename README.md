@@ -1,75 +1,76 @@
-# Getting Started with Create React App
+# EazeIt - Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+EazeIt is a web app designed to help individuals manage stress, anxiety, and depression through simple yet effective tools. It features a calm and user-friendly interface with various resources for mental well-being. This app integrates techniques learned from the *Stress and Coping* course, focusing on providing practical methods for stress management rather than showcasing complex development skills. 
 
-In the project directory, you can run:
+The core purpose of EazeIt is to provide a holistic approach to stress reduction by offering:
 
-### `npm start`
+- Breathing exercises
+- Positive affirmations
+- Relaxing music
+- Motivational videos
+- Coping techniques for stress relief
+- DAS (Depression, Anxiety, Stress) measuring assessment
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. **Simple UI/UX**
+   - Designed to be easy to use and navigate, providing a calming experience with minimal distractions.
 
-### `npm test`
+### 2. **Breathing Exercises**
+   - Guided breathing exercises to help you relax and calm your mind.
+   - Different techniques based on stress levels and preferences.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. **Positive Affirmations**
+   - A collection of positive affirmations displayed on the home screen to help uplift your mood and encourage a positive mindset.
 
-### `npm run build`
+### 4. **Relaxing Music**
+   - Carefully curated relaxing music designed to reduce stress and anxiety levels.
+   - All tracks have been tested and shown to have a positive impact on mental well-being.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 5. **Motivational Videos**
+   - Handpicked motivational videos to inspire and energize you.
+   - Videos focus on mental resilience, overcoming challenges, and personal growth.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 6. **Coping Techniques**
+   - Practical techniques for managing stress, anxiety, and depression.
+   - Evidence-based strategies that you can use in your daily life to cope with emotional challenges.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 7. **DAS (Depression, Anxiety, Stress) Assessment**
+   - An interactive tool to assess your current mental state.
+   - Provides a simple evaluation of your levels of depression, anxiety, and stress, helping you track your emotional health.
 
-### `npm run eject`
+## Purpose and Vision
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The primary goal of EazeIt is to help users manage their stress, anxiety, and depression using science-backed coping mechanisms and relaxation techniques. The app's development is rooted in the knowledge gained from the *Stress and Coping* course, making it a valuable resource for anyone seeking to improve their mental well-being.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This app is **not** intended as a showcase of development skills, but rather as a genuine attempt to implement and integrate stress management techniques into a user-friendly platform. It serves as a tool to assist individuals in their daily mental health journeys, promoting relaxation, mindfulness, and emotional resilience.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## How to Use
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Home Screen**: Start by viewing positive affirmations and access quick links to music, videos, and exercises.
+2. **Breathing Exercises**: Select a breathing exercise that fits your mood and follow the simple instructions to help calm your mind.
+3. **Relaxing Music**: Play calming music while you relax or work, creating a peaceful atmosphere.
+4. **Motivational Videos**: Watch short videos that encourage positive thinking and provide motivation to overcome obstacles.
+5. **Coping Techniques**: Explore different methods for managing stress, such as progressive muscle relaxation, mindfulness, and journaling.
+6. **DAS Assessment**: Take the DAS assessment to understand your current mental health status and track your progress over time.
 
-## Learn More
+## Getting Started
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Open the app in your preferred browser.
+2. Follow the instructions to access each feature and customize it according to your needs.
+3. Begin your journey toward better mental health and well-being.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributions
 
-### Code Splitting
+Since this project is intended for mental well-being, contributions are always welcome! If you have suggestions or improvements, feel free to reach out.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Disclaimer
 
-### Analyzing the Bundle Size
+EazeIt is not a substitute for professional medical advice or therapy. If you experience serious mental health issues, please seek professional help.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## License
 
-### Making a Progressive Web App
+This app is free to use and open for all, with the primary aim of promoting mental health and stress management techniques.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-<<<<<<< HEAD
-=======
-# stress
-# stress
->>>>>>> a1df5cac15ef6a6396fbd984bd6ae8ae4cf5fd95
