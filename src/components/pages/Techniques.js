@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Navigation from '../Navigation';
 
 const Techniques = () => {
@@ -38,8 +38,7 @@ const Techniques = () => {
             },
             {
                 name: "Ventilate Your Feelings",
-                description: "Follow the instructions in the audio below to express and release your feelings to reduce stress and promote mental well-being.",
-                audio: "/techniques/mental/ventilate_your_feelings.mp3"
+                description: "Express your thoughts to reduce stress and improve mental well-being. Use the text box below to write your feelings.",
             },
             {
                 name: "Method of Thought Substitution",
@@ -57,6 +56,16 @@ const Techniques = () => {
     const [openTechniques, setOpenTechniques] = useState({});
     const currentAudioRef = useRef(null);
 
+    // State for ventilate your feelings
+    const [ventilateThoughts, setVentilateThoughts] = useState('');
+    const [savedThoughts, setSavedThoughts] = useState([]);
+
+    // Load saved thoughts from local storage on mount
+    useEffect(() => {
+        const storedThoughts = JSON.parse(localStorage.getItem('ventilateThoughts')) || [];
+        setSavedThoughts(storedThoughts);
+    }, []);
+
     const toggleTechnique = (category, index) => {
         setOpenTechniques((prevState) => ({
             ...prevState,
@@ -65,12 +74,19 @@ const Techniques = () => {
     };
 
     const handleAudioPlay = (audioRef) => {
-        // Pause the currently playing audio if it exists
         if (currentAudioRef.current && currentAudioRef.current !== audioRef) {
             currentAudioRef.current.pause();
         }
-        // Set the new audio as the current audio
         currentAudioRef.current = audioRef;
+    };
+
+    // Handle submission of thoughts
+    const handleThoughtSubmit = () => {
+        if (ventilateThoughts.trim() === '') return;
+        const updatedThoughts = [...savedThoughts, ventilateThoughts];
+        setSavedThoughts(updatedThoughts);
+        setVentilateThoughts('');
+        localStorage.setItem('ventilateThoughts', JSON.stringify(updatedThoughts));
     };
 
     return (
@@ -97,14 +113,51 @@ const Techniques = () => {
                                     {isOpen && (
                                         <div className="mt-2 bg-indigo-700 p-4 rounded-md">
                                             <p className="mb-2">{technique.description}</p>
-                                            <audio
-                                                controls
-                                                className="w-full"
-                                                onPlay={(e) => handleAudioPlay(e.target)}
-                                            >
-                                                <source src={technique.audio} type="audio/mpeg" />
-                                                Your browser does not support the audio element.
-                                            </audio>
+                                            {technique.name === "Ventilate Your Feelings" ? (
+                                                <div>
+                                                    <textarea
+                                                        className="w-full p-2 rounded-md text-black mb-2"
+                                                        rows="4"
+                                                        value={ventilateThoughts}
+                                                        onChange={(e) => setVentilateThoughts(e.target.value)}
+                                                        placeholder="Write down your feelings..."
+                                                    ></textarea>
+                                                    <button
+                                                        onClick={handleThoughtSubmit}
+                                                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400"
+                                                    >
+                                                        Submit
+                                                    </button>
+                                                    <div className="mt-4">
+                                                        <h3 className="text-lg font-semibold">Your Thoughts:</h3>
+                                                        {savedThoughts.length > 0 ? (
+                                                            <ul className="mt-2">
+                                                                {savedThoughts.map((thought, i) => (
+                                                                    <li
+                                                                        key={i}
+                                                                        className="p-2 bg-indigo-600 rounded-md mb-2 text-white"
+                                                                    >
+                                                                        {thought}
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        ) : (
+                                                            <p className="text-sm">No thoughts saved yet.</p>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                technique.audio && (
+                                                    <audio
+                                                        controls
+                                                        className="w-full"
+                                                        onPlay={(e) => handleAudioPlay(e.target)}
+                                                    >
+                                                        <source src={technique.audio} type="audio/mpeg" />
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                )
+                                            )}
                                         </div>
                                     )}
                                 </div>
