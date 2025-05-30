@@ -70,7 +70,4 @@ Since this project is intended for mental well-being, contributions are always w
 
 EazeIt is not a substitute for professional medical advice or therapy. If you experience serious mental health issues, please seek professional help.
 
-## License
-
-This app is free to use and open for all, with the primary aim of promoting mental health and stress management techniques.
 
